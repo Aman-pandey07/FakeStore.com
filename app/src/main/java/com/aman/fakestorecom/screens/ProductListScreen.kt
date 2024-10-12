@@ -1,109 +1,71 @@
 package com.aman.fakestorecom.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-
-import androidx.compose.foundation.layout.fillMaxWidth
-
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.setValue
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProductListScreen(){
-    Scaffold(
-        topBar ={
-            TopAppBar(title = {
-                Text(text = "FakeStore.App", color = Color.Black)
-                },
-                modifier = Modifier.background(Color.Black)
-            )
-        }
-    ){
-        Box(modifier = Modifier.padding(it)){
-            CategoryDropBox()
-        }
-
-
-    }
-}
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import com.aman.fakestorecom.models.ProductListItem
+import com.aman.fakestorecom.viewmodels.ProductViewModel
 
 @Composable
-fun ProductItem(modifier: Modifier = Modifier) {
-    
-}
+fun ProductListScreen(
+    viewModel: ProductViewModel = hiltViewModel() // Dependency injection using Hilt
+) {
+    // Collect the product list state
+    val products = viewModel.products.collectAsState().value
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CategoryDropBox() {
-    val categories = listOf("All", "Electronics", "Jewelry", "Men's Clothing", "Women's Clothing")
-    var expanded by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf(categories[0]) }
-
-    Row(
-        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+    // Display the products in a 2-column grid
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        TextField(
-            value = selectedCategory,
-            onValueChange = { },
-            readOnly = true,
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = "DropDown",
-                    modifier = Modifier.clickable { expanded = true }
-                )
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.width(200.dp)
-        ) {
-            categories.forEach { category ->
-                DropdownMenuItem(
-                    onClick = {
-                        selectedCategory = category
-                        expanded = false
-                    },
-                    text = { Text(text = category) }
-                )
-            }
+        items(products.size) { index ->
+            ProductCard(product = products[index])
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun ProductListScreenPreview(){
-    ProductListScreen()
+fun ProductCard(product: ProductListItem) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp) // Set a fixed height for cards
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            // Load the product image
+            Image(
+                painter = rememberAsyncImagePainter(product.image),
+                contentDescription = product.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Display product details (category, title, description, price)
+            Text(text = product.category, fontSize = 12.sp)
+            Text(text = product.title, fontSize = 12.sp)
+            Text(text = product.description, maxLines = 2, fontSize = 12.sp)
+            Text(text = "Price: ${product.price}", fontSize = 12.sp)
+        }
+    }
 }
