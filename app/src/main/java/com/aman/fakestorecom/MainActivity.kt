@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.aman.fakestorecom.api.FakeStoreAPI
+import com.aman.fakestorecom.screens.DisplayCategory
 import com.aman.fakestorecom.screens.ProductListScreen
 import com.aman.fakestorecom.ui.theme.FakeStorecomTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FakeStorecomTheme {
                 ProductListScreen()
+//                DisplayCategory()
             }
         }
     }

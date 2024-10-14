@@ -17,9 +17,23 @@ class ProductViewModel @Inject constructor(
     val products : StateFlow<List<ProductListItem>>
         get() = productRepository.products
 
+    val categories: StateFlow<List<String>>
+        get() = productRepository.categories
+
     init {
         viewModelScope.launch {
-            productRepository.getProducts()
+            productRepository.getProducts() // Fetch all products initially
+            productRepository.getCategories() // Fetch categories
+        }
+    }
+
+    fun fetchProductsByCategory(category: String) {
+        viewModelScope.launch {
+            if (category == "All") {
+                productRepository.getProducts() // Fetch all products when "All" is selected
+            } else {
+                productRepository.getProductsByCategory(category) // Fetch by selected category
+            }
         }
     }
 }

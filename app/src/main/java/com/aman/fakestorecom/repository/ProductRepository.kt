@@ -20,6 +20,13 @@ class ProductRepository @Inject constructor(private val fakeStoreAPI: FakeStoreA
         }
     }
 
+    suspend fun getProductsByCategory(category: String) {
+        val response = fakeStoreAPI.getProductsByCategory(category)
+        if (response.isSuccessful && response.body() != null) {
+            _products.emit(response.body()!!)
+        }
+    }
+
     private val _categories = MutableStateFlow<List<String>>(emptyList())
     val categories:StateFlow<List<String>>
         get() = _categories

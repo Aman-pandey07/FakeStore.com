@@ -12,4 +12,10 @@ interface FakeStoreAPI {
 
     @GET("products/categories")
     suspend fun getCategories(): Response<List<String>>
+
+    @GET("products/category/{category}")
+    suspend fun getProductsByCategory(
+        @retrofit2.http.Path("category") category: String
+    ): Response<List<ProductListItem>>
+
 }
