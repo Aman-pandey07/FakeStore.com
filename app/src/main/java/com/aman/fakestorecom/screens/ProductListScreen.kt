@@ -48,7 +48,9 @@ fun ProductListScreen(
     ){
         DisplayCategory(
             onCategorySelected = { category ->
-                viewModel.fetchProductsByCategory(category)
+                if (category != null) {
+                    viewModel.fetchProductsByCategory(category)
+                }
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -133,8 +135,8 @@ fun ProductCard(product: ProductListItem){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisplayCategory(
-    viewModel: CategoryViewModel = hiltViewModel(),
-    onCategorySelected: (String) -> Unit
+    onCategorySelected: (String?) -> Unit,  // Lambda to pass the selected category back to the parent
+    viewModel: CategoryViewModel = hiltViewModel()
 ) {
     val categories by viewModel.categories.collectAsState()
     var expanded by remember { mutableStateOf(false) }
@@ -168,12 +170,23 @@ fun DisplayCategory(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
+                // Add the "Any" option first
+                DropdownMenuItem(
+                    onClick = {
+                        selectedCategory = "Any"
+                        expanded = false
+                        onCategorySelected(null)  // Pass null when "Any" is selected to trigger getProducts()
+                    },
+                    text = { Text(text = "Any", color = MaterialTheme.colorScheme.onSurface) }
+                )
+
+                // Then show the categories from API
                 categories.forEach { category ->
                     DropdownMenuItem(
                         onClick = {
                             selectedCategory = category
                             expanded = false
-                            onCategorySelected(category)
+                            onCategorySelected(category)  // Pass the selected category
                         },
                         text = {
                             Text(text = category, color = MaterialTheme.colorScheme.onSurface)

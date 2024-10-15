@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.aman.fakestorecom.api.FakeStoreAPI
 import com.aman.fakestorecom.screens.DisplayCategory
 import com.aman.fakestorecom.screens.ProductListScreen
+import com.aman.fakestorecom.screens.loginsignup.LoginScreen
 import com.aman.fakestorecom.ui.theme.FakeStorecomTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -29,8 +30,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FakeStorecomTheme {
-                ProductListScreen()
+//                ProductListScreen()
 //                DisplayCategory()
+                LoginScreen()
             }
         }
     }
