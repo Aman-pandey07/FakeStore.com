@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
@@ -37,12 +36,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyForgetPasswordScreen() {
+fun MyForgetPasswordScreen(navController: NavController) {
     // Scaffold ensures we handle top and bottom navigation bars correctly
     Scaffold(
         topBar = {
@@ -197,6 +199,7 @@ fun ForgetPasswordScreen(modifier: Modifier=Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ForgetPasswordScreenPreview() {
-    MyForgetPasswordScreen()
+    val navController = rememberNavController()
+    MyForgetPasswordScreen(navController)
 }
 

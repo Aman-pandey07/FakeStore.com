@@ -95,6 +95,7 @@ dependencies {
     //splash api
     implementation(libs.androidx.core.splashscreen)
 
-    //shared preference
+    //navigation
+    implementation(libs.navigation.compose)
 
 }

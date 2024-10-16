@@ -17,7 +17,7 @@ hiltNavigationCompose = "1.0.0"
 kotlinxCoroutinesAndroid = "1.7.0"
 kotlinxCoroutinesCore = " 1.7.0"
 lifecycleViewmodelKtx = " 2.6.1"
-navigationCompose = "2.6.0"
+navigationCompose = "2.8.2"
 retrofit = " 2.9.0"
 
 [libraries]
@@ -46,6 +46,7 @@ hilt-android = { module = "com.google.dagger: hilt-android", version.ref = "hilt
 hilt-compiler = { module = "com.google.dagger: hilt-compiler", version.ref = "hiltCompiler" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx: kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx: kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 retrofit = { module = "com.squareup.retrofit2: retrofit", version.ref = "retrofit" }
 
 [plugins]

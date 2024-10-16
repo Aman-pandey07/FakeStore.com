@@ -39,12 +39,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MySignupScreen() {
+fun MySignupScreen(navController: NavController) {
     // Scaffold ensures we handle top and bottom navigation bars correctly
     Scaffold(
         topBar = {
@@ -243,5 +246,6 @@ fun SignupScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun SignupScreenPreview(modifier: Modifier = Modifier) {
-    MySignupScreen()
+    val navController = rememberNavController()
+    MySignupScreen(navController)
 }
