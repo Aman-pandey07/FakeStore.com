@@ -91,4 +91,10 @@ dependencies {
     implementation (libs.androidx.hilt.navigation.compose)
     //coil
     implementation(libs.coil.compose)
+
+    //splash api
+    implementation(libs.androidx.core.splashscreen)
+
+    //shared preference
+
 }
