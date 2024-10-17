@@ -121,9 +121,9 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
             },
-            topBar = {
-                TopAppBar(title = { Text(text = "FakeCommerce.com") })
-            },
+//            topBar = {
+//                TopAppBar(title = { Text(text = "FakeCommerce.com") })
+//            },
             content = {
                 Column(modifier = Modifier.padding(it)) {
                     Text(text = "this is home screen")
