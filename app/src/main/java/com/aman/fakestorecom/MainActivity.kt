@@ -9,7 +9,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.navigation.App
+import com.aman.fakestorecom.screens.home.HomeScreen
 import com.aman.fakestorecom.screens.loginsignup.LoginScreen
 import com.aman.fakestorecom.screens.onboard.OnboardingScreen
 import com.aman.fakestorecom.screens.onboard.OnboardingUtils
@@ -27,6 +29,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             FakeStorecomTheme {
                 Surface(color = MaterialTheme.colorScheme.background){
                     if (onboardingUtils.isOnboardingCompleted()){
@@ -38,6 +41,7 @@ class MainActivity : ComponentActivity() {
 //                ProductListScreen()
 //                DisplayCategory()
 //                LoginScreen()
+                HomeScreen(navController = navController)
             }
         }
     }

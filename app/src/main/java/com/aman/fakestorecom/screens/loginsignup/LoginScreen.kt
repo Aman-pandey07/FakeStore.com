@@ -65,8 +65,8 @@ fun MyLoginScreen(navController: NavController) {
                 },
                 title = {
                     Text(
-                    text = "Login",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                            text = "Login",
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         )
                         },
                 modifier = Modifier.statusBarsPadding(), // Adds padding for status bar
