@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
@@ -30,10 +32,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.navigation.Routes
+import com.aman.fakestorecom.screens.home.favorites.FavoriteContent
+import com.aman.fakestorecom.screens.home.homeicon.HomeContent
+import com.aman.fakestorecom.screens.home.profile.ProfileContent
+import com.aman.fakestorecom.screens.home.shop.ShopContent
 
 
 data class BottomNavigationItem(
@@ -42,9 +49,11 @@ data class BottomNavigationItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 )
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+    val bottomNavController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
@@ -62,7 +71,7 @@ fun HomeScreen(navController: NavController) {
             title = "Favorite",
             route = Routes.FAVORITE_SCREEN,
             selectedIcon = Icons.Filled.Favorite,
-            unselectedIcon = Icons.Outlined.Favorite,
+            unselectedIcon = Icons.Outlined.FavoriteBorder,
         ),
         BottomNavigationItem(
             title = "Profile",
@@ -80,8 +89,7 @@ fun HomeScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
-            .navigationBarsPadding()
-        ,
+            .navigationBarsPadding(),
         color = MaterialTheme.colorScheme.background
     ) {
         Scaffold(
@@ -92,18 +100,13 @@ fun HomeScreen(navController: NavController) {
                             selected = selectedItemIndex == index,
                             onClick = {
                                 selectedItemIndex = index
-
-                                try {
-                                    // Navigate only if the route is valid
-                                    navController.navigate(item.route) {
-                                        popUpTo(navController.graph.startDestinationId) {
-                                            saveState = true
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = true
+                                // Navigate only within bottom bar items using `bottomNavController`
+                                bottomNavController.navigate(item.route) {
+                                    popUpTo(bottomNavController.graph.startDestinationId) {
+                                        saveState = true
                                     }
-                                } catch (e: IllegalArgumentException) {
-                                    e.printStackTrace()  // Optionally log the error
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
                             },
                             label = {
@@ -121,12 +124,27 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
             },
-//            topBar = {
-//                TopAppBar(title = { Text(text = "FakeCommerce.com") })
-//            },
-            content = {
-                Column(modifier = Modifier.padding(it)) {
-                    Text(text = "this is home screen")
+            topBar = {
+                TopAppBar(title = { Text(text = "FakeCommerce.com") })
+            },
+            content = {paddingValues->
+                NavHost(
+                    navController = bottomNavController,
+                    startDestination = Routes.HOME_SCREEN,  // Set initial bottom bar destination
+                    modifier = Modifier.padding(paddingValues)
+                ) {
+                    composable(Routes.HOME_SCREEN) {
+                        HomeContent() // Define HomeContent Composable
+                    }
+                    composable(Routes.SHOP_SCREEN) {
+                        ShopContent() // Define ShopContent Composable
+                    }
+                    composable(Routes.FAVORITE_SCREEN) {
+                        FavoriteContent() // Define FavoriteContent Composable
+                    }
+                    composable(Routes.PROFILE_SCREEN) {
+                        ProfileContent() // Define ProfileContent Composable
+                    }
                 }
 
             }
@@ -137,9 +155,7 @@ fun HomeScreen(navController: NavController) {
 
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun HomeScreenPreview(modifier: Modifier = Modifier) {
-//    val navController = rememberNavController()
-//    HomeScreen(navController)
-//}
+
+
+
+

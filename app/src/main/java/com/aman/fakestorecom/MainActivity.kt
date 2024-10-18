@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 //                ProductListScreen()
 //                DisplayCategory()
 //                LoginScreen()
-                HomeScreen(navController = navController)
+//                HomeScreen(navController = navController)
             }
         }
     }

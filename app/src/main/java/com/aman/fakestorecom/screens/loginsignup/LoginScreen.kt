@@ -45,13 +45,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyLoginScreen(navController: NavController) {
+fun MyLoginScreen(navController: NavHostController) {
     // Scaffold ensures we handle top and bottom navigation bars correctly
     Scaffold(
         topBar = {
@@ -71,22 +71,21 @@ fun MyLoginScreen(navController: NavController) {
                         },
                 modifier = Modifier.statusBarsPadding(), // Adds padding for status bar
             )
-        },
-        content = { paddingValues ->
-            // Use padding values to handle insets like top and bottom navigation bars
-            LoginScreen(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .navigationBarsPadding() // Adds padding for bottom navigation bar
-                    .fillMaxSize() // Ensure content takes full space with correct padding
-            )
         }
-    )
+    ) { paddingValues ->
+        // Use padding values to handle insets like top and bottom navigation bars
+        LoginScreen(
+            modifier = Modifier
+                .padding(paddingValues)
+                .navigationBarsPadding() // Adds padding for bottom navigation bar
+                .fillMaxSize()
+        ) { navController.navigate(Routes.HOME_SCREEN) }
+    }
 }
 
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(modifier: Modifier = Modifier,onClick: () -> Unit) {
 
     //1st column
     Column(
@@ -179,7 +178,9 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
             // Login Button
             Button(
-                onClick = { /* Handle login */ },
+                onClick = { /* Handle login */
+                onClick()
+                },
                 colors = ButtonDefaults.buttonColors(Color.Red),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -229,9 +230,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-    MyLoginScreen(navController)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LoginScreenPreview(modifier: Modifier = Modifier) {
+//    MyLoginScreen(navController)
+//}
