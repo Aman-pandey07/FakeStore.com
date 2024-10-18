@@ -1,17 +1,15 @@
 package com.aman.fakestorecom.screens.home
 
-import androidx.compose.foundation.layout.Column
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -21,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -117,15 +117,27 @@ fun HomeScreen(navController: NavController) {
                                     imageVector = if (index == selectedItemIndex) {
                                         item.selectedIcon
                                     } else item.unselectedIcon,
-                                    contentDescription = item.title
+                                    contentDescription = item.title,
+                                    tint = Color.Red
                                 )
-                            }
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = Color.Red, // Selected icon color
+                                unselectedIconColor = Color.Red, // Unselected icon color
+                                selectedTextColor = Color.Red, // Selected text color
+                                unselectedTextColor = Color.Red // Unselected text color
+                            )
                         )
                     }
                 }
             },
             topBar = {
-                TopAppBar(title = { Text(text = "FakeCommerce.com") })
+                TopAppBar(title = {
+                    Text(
+                        text = "FakeCommerce.com",
+                        color = Color.Red // Set title color to red
+                    )
+                })
             },
             content = {paddingValues->
                 NavHost(
