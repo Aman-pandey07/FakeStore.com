@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +24,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,7 +52,7 @@ data class BottomNavigationItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreenLayout(navController: NavController) {
     val bottomNavController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
@@ -132,12 +132,14 @@ fun HomeScreen(navController: NavController) {
                 }
             },
             topBar = {
-                TopAppBar(title = {
-                    Text(
-                        text = "FakeCommerce.com",
-                        color = Color.Red // Set title color to red
-                    )
-                })
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = "FakeCommerce.com",
+                            color = Color.Red // Set title color to red
+                        )
+                    }
+                )
             },
             content = {paddingValues->
                 NavHost(
