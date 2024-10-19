@@ -3,14 +3,12 @@ package com.aman.fakestorecom.screens.home.homeicon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,7 +24,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,9 +32,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -118,8 +116,107 @@ fun HomeContent() {
                 ItemsDisplayRows(products = dummyProducts)
             }
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                // Row 1 (Full-width Image)
+                ImageWithText(
+                    imageRes = R.drawable.new_collection_image1, // Add your image resource here
+                    text = "New collection",
+                    onClick = { /* Handle click */ }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Row 2 (Three Image Blocks)
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        ImageWithText(
+                            imageRes = R.drawable.mens_hoodies_image, // Add your image resource
+                            text = "Men’s hoodies",
+                            onClick = { /* Handle click */ }
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        ImageWithText(
+                            imageRes = R.drawable.mens_hoodies_image, // Add your image resource
+                            text = "Men’s hoodies",
+                            onClick = { /* Handle click */ }
+                        )
+
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        ImageWithText(
+                            imageRes = R.drawable.summer_sale_image, // Add your image resource
+                            text = "Summer sale",
+                            onClick = { /* Handle click */ },
+                            textColor = Color.Red // Text with red color for "Summer sale"
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        ImageWithText(
+                            imageRes = R.drawable.black_image, // Add your image resource
+                            text = "Black",
+                            onClick = { /* Handle click */ }
+                        )
+                    }
+                }
+            }
+        }
+
     }
 
+}
+
+@Composable
+fun ImageWithText(
+    imageRes: Int,
+    text: String,
+    onClick: () -> Unit,
+    textColor: Color = Color.White // Default text color is white
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+    ) {
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = text,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.BottomStart
+        ) {
+            Text(
+                text = text,
+                style = TextStyle(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = textColor,
+                    fontFamily = FontFamily.Default
+                ),
+                textAlign = TextAlign.Start
+            )
+        }
+    }
 }
 
 @Composable
