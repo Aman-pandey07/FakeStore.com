@@ -74,7 +74,7 @@ fun HomeContent() {
             ) {
                 // "Fashion sale" text
                 Text(
-                    text = "Fashion\nsale",
+                    text = "Fashion\n\nsale",
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -148,9 +148,10 @@ fun HomeContent() {
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         ImageWithText(
-                            imageRes = R.drawable.mens_hoodies_image, // Add your image resource
-                            text = "Men’s hoodies",
-                            onClick = { /* Handle click */ }
+                            imageRes = R.drawable.summer_sale_image, // Add your image resource
+                            text = "Winter sale",
+                            onClick = { /* Handle click */ },
+                            textColor = Color.Blue // Text with red color for "Summer sale"
                         )
 
                     }

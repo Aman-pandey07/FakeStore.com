@@ -2,16 +2,19 @@ package com.aman.fakestorecom.screens.home
 
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -32,11 +35,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.navigation.Routes
+import com.aman.fakestorecom.screens.home.bag.BagScreenContent
 import com.aman.fakestorecom.screens.home.favorites.FavoriteContent
 import com.aman.fakestorecom.screens.home.homeicon.HomeContent
 import com.aman.fakestorecom.screens.home.profile.ProfileContent
@@ -66,6 +71,12 @@ fun HomeScreenLayout(navController: NavController) {
             route = Routes.SHOP_SCREEN,
             selectedIcon = Icons.Filled.ShoppingCart,
             unselectedIcon = Icons.Outlined.ShoppingCart,
+        ),
+        BottomNavigationItem(
+            title = "Bag",
+            route = Routes.BAG_SCREEN,
+            selectedIcon = Icons.Filled.Lock,
+            unselectedIcon = Icons.Outlined.Lock,
         ),
         BottomNavigationItem(
             title = "Favorite",
@@ -138,7 +149,8 @@ fun HomeScreenLayout(navController: NavController) {
                             text = "FakeCommerce.com",
                             color = Color.Red // Set title color to red
                         )
-                    }
+                    },
+                    modifier = Modifier.height(35.dp)
                 )
             },
             content = {paddingValues->
@@ -153,6 +165,9 @@ fun HomeScreenLayout(navController: NavController) {
                     composable(Routes.SHOP_SCREEN) {
                         ShopContent() // Define ShopContent Composable
                     }
+                    composable(Routes.BAG_SCREEN) {
+                        BagScreenContent() // Define ShopContent Composable
+                    }
                     composable(Routes.FAVORITE_SCREEN) {
                         FavoriteContent() // Define FavoriteContent Composable
                     }
@@ -160,9 +175,7 @@ fun HomeScreenLayout(navController: NavController) {
                         ProfileContent() // Define ProfileContent Composable
                     }
                 }
-
             }
-
         )
     }
 }

@@ -8,4 +8,5 @@ object Routes {
     const val SHOP_SCREEN = "shop"
     const val FAVORITE_SCREEN = "favorite"
     const val PROFILE_SCREEN = "profile"
+    const val BAG_SCREEN = "bag"
 }
