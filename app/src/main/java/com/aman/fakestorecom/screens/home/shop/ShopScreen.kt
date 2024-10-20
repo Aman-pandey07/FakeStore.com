@@ -152,11 +152,12 @@ fun CategoryCard(category: CategoryItem) {
             )
             Image(
                 painter = painterResource(id = category.imageRes),
-                contentDescription = category.name,
-                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                contentDescription = category.name,
+                contentScale = ContentScale.Crop,
+
             )
         }
     }
