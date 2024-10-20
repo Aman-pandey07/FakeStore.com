@@ -3,10 +3,14 @@ package com.aman.fakestorecom.screens.home.shop
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -16,11 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
+import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 data class CategoryItem(val name: String, val imageRes: Int)
 
@@ -64,6 +70,7 @@ fun ShopContent() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White)
+                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.padding(16.dp))
             // Tab Row
@@ -115,6 +122,7 @@ fun ShopContent() {
             Spacer(modifier = Modifier.height(13.dp))
 
             LazyColumn(
+                modifier = Modifier.height(400.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -122,8 +130,58 @@ fun ShopContent() {
                     CategoryCard(category = categories[index])
                 }
             }
-        }
 
+            RedGeneralButton(onClick = { /*TODO*/ }, text = "VIEW ALL ITEMS")
+            Text(
+                text = "Choose Category",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp),
+                fontWeight = FontWeight.Light
+            )
+            ClickableCategories("Top") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Shirts & Blouses") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Cardigans & Sweaters") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Knitwear") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Blazers") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Outerwear") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Pants") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("jeans") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Shorts") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Skirts") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+            ClickableCategories("Dresses") {}
+            HorizontalDivider(modifier = Modifier.padding(20.dp))
+
+        }
+    }
+}
+
+@Composable
+fun ClickableCategories(text:String ,onClick: () -> Unit = {}) {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp)
+            .clickable { onClick() }
+    ){
+        Text(
+            text = text,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowRight,
+            contentDescription = null, modifier = Modifier.padding(end = 20.dp)
+        )
     }
 }
 
