@@ -47,7 +47,6 @@ import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 @Composable
 fun FavoriteContent() {
     PageBluePrint(title = "", rightIcon = Icons.Default.Search) {
-//        val filters = listOf("Summer", "T-Shirts", "Shirts","pants","shorts","shoes","Dress","Jackets")
         var selectedFilter by remember { mutableStateOf("T-Shirts") }
         var priceSort by remember { mutableStateOf(true) }
         Column(
@@ -76,7 +75,6 @@ fun FavoriteContent() {
                     )
                     Spacer(modifier = Modifier.padding(5.dp))
                 }
-
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -105,6 +103,7 @@ fun FavoriteContent() {
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
+
         }
     }
 }
