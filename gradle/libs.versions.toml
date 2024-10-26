@@ -19,6 +19,9 @@ kotlinxCoroutinesCore = " 1.7.0"
 lifecycleViewmodelKtx = " 2.6.1"
 navigationCompose = "2.8.2"
 retrofit = " 2.9.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseAuth = "23.1.0"
+runtimeLivedata = "1.7.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,7 +51,10 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx: kotlinx-coroutin
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx: kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 retrofit = { module = "com.squareup.retrofit2: retrofit", version.ref = "retrofit" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }

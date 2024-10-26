@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import com.aman.fakestorecom.navigation.App
 import com.aman.fakestorecom.screens.onboard.OnboardingScreen
 import com.aman.fakestorecom.screens.onboard.OnboardingUtils
 import com.aman.fakestorecom.ui.theme.FakeStorecomTheme
+import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,35 +28,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         enableEdgeToEdge()
+        val authViewModel : AuthViewModel by viewModels()
         setContent {
-            val navController = rememberNavController()
             FakeStorecomTheme {
                 Surface(color = MaterialTheme.colorScheme.background){
                     if (onboardingUtils.isOnboardingCompleted()){
-                        App()
+                        App(authViewModel = authViewModel)
                     }else{
                         ShowOnboardingScreen()
                     }
                 }
-//                ProductListScreen()
-//                DisplayCategory()
-//                LoginScreen()
-//                HomeScreen(navController = navController)
             }
         }
     }
     @Composable
     private fun ShowOnboardingScreen() {
+        val authViewModel : AuthViewModel by viewModels()
         val scope = rememberCoroutineScope()
         OnboardingScreen {
             onboardingUtils.setOnboardingCompleted()
             scope.launch {
                 setContent {
-                    App()
+                    App(authViewModel = authViewModel)
                 }
             }
         }
     }
-
 }
 

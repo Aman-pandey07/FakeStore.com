@@ -27,10 +27,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -48,6 +48,8 @@ import com.aman.fakestorecom.screens.home.favorites.FavoriteContent
 import com.aman.fakestorecom.screens.home.homeicon.HomeContent
 import com.aman.fakestorecom.screens.home.profile.ProfileContent
 import com.aman.fakestorecom.screens.home.shop.ShopContent
+import com.aman.fakestorecom.viewmodels.authviewmodel.AuthState
+import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 
 data class BottomNavigationItem(
@@ -59,7 +61,16 @@ data class BottomNavigationItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenLayout(navController: NavController) {
+fun HomeScreenLayout(navController: NavController,authViewModel: AuthViewModel) {
+
+    val authState = authViewModel.authState.observeAsState()
+    LaunchedEffect (authState.value) {
+        when (authState.value){
+            is AuthState.Unauthenticated -> navController.navigate (Routes.LOGIN_SCREEN)
+            else-> Unit
+        }
+    }
+
     val bottomNavController = rememberNavController()
     val items = listOf(
         BottomNavigationItem(
@@ -131,14 +142,14 @@ fun HomeScreenLayout(navController: NavController) {
                                         item.selectedIcon
                                     } else item.unselectedIcon,
                                     contentDescription = item.title,
-                                    tint = Color.Red
+//                                    tint = Color.Red
                                 )
                             },
                             colors = NavigationBarItemDefaults.colors(
                                 selectedIconColor = Color.Red, // Selected icon color
-                                unselectedIconColor = Color.Red, // Unselected icon color
+                                unselectedIconColor = Color.Gray, // Unselected icon color
                                 selectedTextColor = Color.Red, // Selected text color
-                                unselectedTextColor = Color.Red // Unselected text color
+                                unselectedTextColor = Color.Gray // Unselected text color
                             )
                         )
                     }
@@ -155,14 +166,14 @@ fun HomeScreenLayout(navController: NavController) {
                     modifier = Modifier.height(35.dp)
                 )
             },
-            content = {paddingValues->
+            content = { paddingValues->
                 NavHost(
                     navController = bottomNavController,
                     startDestination = Routes.HOME_SCREEN,  // Set initial bottom bar destination
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     composable(Routes.HOME_SCREEN) {
-                        HomeContent() // Define HomeContent Composable
+                        HomeContent(authViewModel) // Define HomeContent Composable
                     }
                     composable(Routes.SHOP_SCREEN) {
                         ShopContent() // Define ShopContent Composable
@@ -174,7 +185,7 @@ fun HomeScreenLayout(navController: NavController) {
                         FavoriteContent() // Define FavoriteContent Composable
                     }
                     composable(Routes.PROFILE_SCREEN) {
-                        ProfileContent() // Define ProfileContent Composable
+                        ProfileContent(authViewModel) // Define ProfileContent Composable
                     }
                 }
             }

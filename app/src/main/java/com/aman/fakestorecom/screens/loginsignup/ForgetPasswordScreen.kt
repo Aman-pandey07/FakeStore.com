@@ -38,6 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
+import okhttp3.Route
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +72,7 @@ fun MyForgetPasswordScreen(navController: NavHostController) {
                     .padding(paddingValues)
                     .navigationBarsPadding() // Adds padding for bottom navigation bar
                     .fillMaxSize() // Ensure content takes full space with correct padding
-            )
+            ){navController.navigate(Routes.HOME_SCREEN)}
         }
     )
 }
@@ -78,7 +80,7 @@ fun MyForgetPasswordScreen(navController: NavHostController) {
 
 
 @Composable
-fun ForgetPasswordScreen(modifier: Modifier=Modifier) {
+fun ForgetPasswordScreen(modifier: Modifier=Modifier,onClick: ()->Unit) {
 
     //1st column
     Column(
@@ -144,7 +146,7 @@ fun ForgetPasswordScreen(modifier: Modifier=Modifier) {
 
             // Login Button
             Button(
-                onClick = { /* Handle login */ },
+                onClick = { onClick() },
                 colors = ButtonDefaults.buttonColors(Color.Red),
                 modifier = Modifier
                     .fillMaxWidth()

@@ -26,7 +26,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,6 +44,9 @@ import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import androidx.compose.material3.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 import com.aman.fakestorecom.screens.home.homeicon.ItemsDisplayRows
 import com.aman.fakestorecom.screens.home.homeicon.TheRowComposable
@@ -52,7 +54,7 @@ import com.aman.fakestorecom.screens.home.homeicon.dummyProducts
 
 
 @Composable
-fun ItemDetailsScreen(modifier: Modifier = Modifier) {
+fun ItemDetailsScreen(navController: NavController) {
     PageBluePrint(title = "Short dress",rightIcon = Icons.Default.Share){
         //Item Details Screen Content from here to bottom
         var selectedSize by remember { mutableStateOf("Size") }
@@ -256,5 +258,6 @@ fun StarRating(rating: Double) {
 @Preview
 @Composable
 fun ItemDetailsScreenPreview() {
-    ItemDetailsScreen()
+    val navController = rememberNavController()
+    ItemDetailsScreen(navController)
 }

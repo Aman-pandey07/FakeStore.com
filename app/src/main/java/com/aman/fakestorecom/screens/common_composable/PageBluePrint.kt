@@ -56,7 +56,7 @@ fun PageBluePrint(title: String, rightIcon:ImageVector, content: @Composable () 
                     title = {
                         Text(
                             text = title,
-                            color = Color.Red // Set title color to red
+                            color = Color.Black // Set title color to red
                         )
                     },
                     scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),

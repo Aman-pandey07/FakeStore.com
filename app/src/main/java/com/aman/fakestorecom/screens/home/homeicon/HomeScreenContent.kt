@@ -43,9 +43,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
+import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 @Composable
-fun HomeContent() {
+fun HomeContent(authViewModel: AuthViewModel) {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -175,6 +177,7 @@ fun HomeContent() {
                 }
             }
         }
+        RedGeneralButton(onClick = { authViewModel.signout() }, text = "Signout temp")
 
     }
 
@@ -290,7 +293,9 @@ fun ProductCard(product: Product) {
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp, vertical = 5.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 5.dp, vertical = 5.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // Discount label
@@ -506,8 +511,8 @@ val dummyProducts = listOf(
 )
 
 
-@Preview(showBackground = true)
-@Composable
-fun HomeContentPreview(modifier: Modifier = Modifier) {
-    HomeContent()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun HomeContentPreview(modifier: Modifier = Modifier) {
+//    HomeContent()
+//}

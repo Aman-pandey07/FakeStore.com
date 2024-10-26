@@ -27,12 +27,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
-fun CheckoutPage(modifier: Modifier = Modifier) {
+fun CheckoutPage(navController: NavController) {
     PageBluePrint(title = "Checkout", rightIcon = Icons.Default.Notifications) {
         Column(
             modifier = Modifier
@@ -165,5 +167,6 @@ fun OrderSummaryItem(label: String, amount: String) {
 @Preview
 @Composable
 fun CheckoutPagePreview() {
-    CheckoutPage()
+    val navController = rememberNavController()
+    CheckoutPage(navController)
 }

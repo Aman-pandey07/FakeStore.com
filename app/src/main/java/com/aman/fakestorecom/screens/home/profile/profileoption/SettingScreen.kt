@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
-fun SettingScreen(modifier: Modifier = Modifier) {
+fun SettingScreen() {
     PageBluePrint(title = "Setting", rightIcon = Icons.Default.Search) {
         Column(
             modifier = Modifier

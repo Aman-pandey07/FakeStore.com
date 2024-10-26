@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
@@ -34,14 +36,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
+import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(authViewModel: AuthViewModel) {
     PageBluePrint(title = "My Profile", rightIcon = Icons.Default.Search) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -111,6 +115,11 @@ fun ProfileContent() {
                 title = "Settings",
                 subtitle = "Notifications, password",{}
             )
+            ProfileItem(
+                // TODO implement signout here
+                title = "Logout",
+                subtitle = ""
+            ) { authViewModel.signout() }
         }
     }
 }
@@ -161,8 +170,8 @@ fun ProfileItem(title: String, subtitle: String,onClick: () -> Unit ){
 }
 
 
-@Preview
-@Composable
-fun ProfileContentPreview() {
-    ProfileContent()
-}
+//@Preview
+//@Composable
+//fun ProfileContentPreview() {
+//    ProfileContent()
+//}

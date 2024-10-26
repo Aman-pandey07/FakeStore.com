@@ -14,15 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
-fun SuccessScreen(modifier: Modifier = Modifier) {
+fun SuccessScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,5 +58,6 @@ fun SuccessScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun SuccessScreenPreview() {
-    SuccessScreen()
+    val navController = rememberNavController()
+    SuccessScreen(navController)
 }

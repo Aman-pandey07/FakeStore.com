@@ -7,15 +7,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -37,12 +34,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
-fun PaymentMethodsScreen(modifier: Modifier = Modifier) {
+fun PaymentMethodsScreen(navController: NavController) {
     PageBluePrint(title = "Payment Methods", rightIcon = Icons.Default.Lock) {
         var showDialog by remember { mutableStateOf(false) }
         Scaffold(
@@ -197,5 +197,6 @@ fun AddCardDialog(onDismiss: () -> Unit) {
 @Preview
 @Composable
 fun PaymentMethodsScreenPreview() {
-    PaymentMethodsScreen()
+    val navController = rememberNavController()
+    PaymentMethodsScreen(navController)
 }
