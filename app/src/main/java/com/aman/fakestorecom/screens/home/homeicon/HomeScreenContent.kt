@@ -39,15 +39,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aman.fakestorecom.R
-import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
-import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 @Composable
-fun HomeContent(authViewModel: AuthViewModel) {
+fun HomeContent() {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -177,7 +174,6 @@ fun HomeContent(authViewModel: AuthViewModel) {
                 }
             }
         }
-        RedGeneralButton(onClick = { authViewModel.signout() }, text = "Signout temp")
 
     }
 
