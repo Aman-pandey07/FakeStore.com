@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -29,59 +31,70 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.models.ProductListItem
+import com.aman.fakestorecom.navigation.Routes
+import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.viewmodels.CategoryViewModel
 import com.aman.fakestorecom.viewmodels.ProductViewModel
 import kotlinx.coroutines.flow.forEach
 
 @Composable
 fun ProductListScreen(
-    viewModel: ProductViewModel = hiltViewModel() // Dependency injection using Hilt
+    navController: NavController,
+    viewModel: ProductViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        DisplayCategory(
-            onCategorySelected = { category ->
-                if (category != null) {
-                    viewModel.fetchProductsByCategory(category)
-                }
-            }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        // Collect the product list state
-        val products = viewModel.products.collectAsState().value
-
-        // Display the products in a 2-column grid
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+    PageBluePrint(title = "Products", rightIcon = Icons.Default.Search) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
-            items(products.size) { index ->
-                ProductCard(product = products[index])
+            Spacer(modifier = Modifier.height(16.dp))
+            DisplayCategory(
+                onCategorySelected = { category ->
+                    if (category != null) {
+                        viewModel.fetchProductsByCategory(category)
+                    }
+                }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            // Collect the product list state
+            val products = viewModel.products.collectAsState().value
+
+            // Display the products in a 2-column grid
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ){
+                items(products.size) { index ->
+                    ProductCard(
+                        product = products[index],
+                        onProductClick = {navController.navigate(Routes.productDetailScreenRoute(products[index].id))}
+                    )
+                }
             }
         }
     }
+
 }
 
 @Composable
-fun ProductCard(product: ProductListItem){
+fun ProductCard(product: ProductListItem,onProductClick:() -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(320.dp)
-            .clickable { /* Handle product click */ },
+            .clickable { onProductClick() },
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
             modifier = Modifier.padding(5.dp),
@@ -122,7 +135,7 @@ fun ProductCard(product: ProductListItem){
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Price: ₹${product.price}",
+                text = "Price: $ ${product.price}",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.secondary

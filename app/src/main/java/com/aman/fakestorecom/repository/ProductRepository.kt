@@ -1,5 +1,6 @@
 package com.aman.fakestorecom.repository
 
+import android.util.Log
 import com.aman.fakestorecom.api.FakeStoreAPI
 import com.aman.fakestorecom.models.ProductListItem
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,6 +37,20 @@ class ProductRepository @Inject constructor(private val fakeStoreAPI: FakeStoreA
         if (response.isSuccessful && response.body()!=null){
             //
             _categories.emit(response.body()!!)
+        }
+    }
+
+
+    private val _specificProduct = MutableStateFlow<ProductListItem?>(null)
+    val specificProduct: StateFlow<ProductListItem?> = _specificProduct
+
+    suspend fun getProductById(id: Int) {
+        val response = fakeStoreAPI.getProductsById(id)
+        Log.d("ProductRepository", "API response for product ID $id: ${response.body()}")
+        if (response.isSuccessful && response.body() != null) {
+            _specificProduct.emit(response.body()) // Emit the fetched product
+        } else {
+            Log.e("ProductRepository", "Error fetching product by id $id: ${response.errorBody()}")
         }
     }
 

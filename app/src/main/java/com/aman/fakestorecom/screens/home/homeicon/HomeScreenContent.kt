@@ -41,10 +41,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 
 @Composable
-fun HomeContent() {
+fun HomeContent(navController: NavController) {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -84,7 +86,7 @@ fun HomeContent() {
 
                 // "Check" button
                 Button(
-                    onClick = { /* Your onClick logic */ },
+                    onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) },
                     modifier = Modifier
                         .width(150.dp)
                         .clip(RoundedCornerShape(50.dp)), // Rounded corners
@@ -109,9 +111,17 @@ fun HomeContent() {
                 modifier = Modifier
                 .fillMaxWidth()
             ){
-                TheRowComposable(t1 = "New", t2 = "You've never seen it before",{/*handle view all click from here*/})
+                TheRowComposable(
+                    t1 = "New",
+                    t2 = "You've never seen it before",
+                    {navController.navigate(Routes.PRODUCT_LIST_SCREEN)}
+                )
                 ItemsDisplayRows(products = dummyProducts)
-                TheRowComposable(t1 = "Sale", t2 = "Supper summer sale",{/*handle view all click from here*/})
+                TheRowComposable(
+                    t1 = "Sale",
+                    t2 = "Supper summer sale",
+                    {navController.navigate(Routes.PRODUCT_LIST_SCREEN)}
+                )
                 ItemsDisplayRows(products = dummyProducts)
             }
         }

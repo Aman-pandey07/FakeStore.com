@@ -1,9 +1,15 @@
 package com.aman.fakestorecom.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.aman.fakestorecom.screens.ProductDetailScreen
+import com.aman.fakestorecom.screens.ProductListScreen
 import com.aman.fakestorecom.screens.home.HomeScreenLayout
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.CheckoutPage
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.PaymentMethodsScreen
@@ -12,6 +18,7 @@ import com.aman.fakestorecom.screens.item_display_screen.ItemDetailsScreen
 import com.aman.fakestorecom.screens.loginsignup.MyForgetPasswordScreen
 import com.aman.fakestorecom.screens.loginsignup.MyLoginScreen
 import com.aman.fakestorecom.screens.loginsignup.MySignupScreen
+import com.aman.fakestorecom.viewmodels.ProductViewModel
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 
@@ -35,6 +42,9 @@ fun App(authViewModel: AuthViewModel) {
         composable(Routes.HOME_SCREEN) {
             HomeScreenLayout(navController,authViewModel)
         }
+        composable(Routes.PRODUCT_LIST_SCREEN) {
+            ProductListScreen(navController)
+        }
 
         composable(Routes.ITEM_DISPLAY_SCREEN) {
             ItemDetailsScreen(navController)
@@ -47,6 +57,15 @@ fun App(authViewModel: AuthViewModel) {
         }
         composable(Routes.SUCCESS_SCREEN) {
             SuccessScreen(navController)
+        }
+
+        composable(
+            route = Routes.PRODUCT_DETAIL_SCREEN,
+            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getInt("productId") ?: 0
+            Log.d("Navigation", "Navigating to ProductDetailScreen with productId: $productId") // Add this line
+            ProductDetailScreen(navController, productId)
         }
     }
 }

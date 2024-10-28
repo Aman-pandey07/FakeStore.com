@@ -177,7 +177,7 @@ fun HomeScreenLayout(navController: NavController,authViewModel: AuthViewModel) 
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     composable(Routes.HOME_SCREEN) {
-                        HomeContent() // Define HomeContent Composable
+                        HomeContent(navController) // Define HomeContent Composable
                     }
                     composable(Routes.SHOP_SCREEN) {
                         ShopContent() // Define ShopContent Composable

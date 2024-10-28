@@ -12,6 +12,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.navigation.App
+import com.aman.fakestorecom.screens.ProductListScreen
 import com.aman.fakestorecom.screens.onboard.OnboardingScreen
 import com.aman.fakestorecom.screens.onboard.OnboardingUtils
 import com.aman.fakestorecom.ui.theme.FakeStorecomTheme
