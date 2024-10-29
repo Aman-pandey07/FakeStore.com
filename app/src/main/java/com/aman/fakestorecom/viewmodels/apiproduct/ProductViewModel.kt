@@ -1,4 +1,4 @@
-package com.aman.fakestorecom.viewmodels
+package com.aman.fakestorecom.viewmodels.apiproduct
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

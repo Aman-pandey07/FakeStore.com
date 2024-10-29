@@ -116,13 +116,13 @@ fun HomeContent(navController: NavController) {
                     t2 = "You've never seen it before",
                     {navController.navigate(Routes.PRODUCT_LIST_SCREEN)}
                 )
-                ItemsDisplayRows(products = dummyProducts)
+                ItemsDisplayRows(products = dummyProducts,navController)
                 TheRowComposable(
                     t1 = "Sale",
                     t2 = "Supper summer sale",
                     {navController.navigate(Routes.PRODUCT_LIST_SCREEN)}
                 )
-                ItemsDisplayRows(products = dummyProducts)
+                ItemsDisplayRows(products = dummyProducts,navController)
             }
         }
 
@@ -140,7 +140,7 @@ fun HomeContent(navController: NavController) {
                 ImageWithText(
                     imageRes = R.drawable.new_collection_image1, // Add your image resource here
                     text = "New collection",
-                    onClick = { /* Handle click */ }
+                    onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -153,13 +153,13 @@ fun HomeContent(navController: NavController) {
                         ImageWithText(
                             imageRes = R.drawable.mens_hoodies_image, // Add your image resource
                             text = "Men’s hoodies",
-                            onClick = { /* Handle click */ }
+                            onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         ImageWithText(
                             imageRes = R.drawable.summer_sale_image, // Add your image resource
                             text = "Winter sale",
-                            onClick = { /* Handle click */ },
+                            onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) },
                             textColor = Color.Blue // Text with red color for "Summer sale"
                         )
 
@@ -171,14 +171,14 @@ fun HomeContent(navController: NavController) {
                         ImageWithText(
                             imageRes = R.drawable.summer_sale_image, // Add your image resource
                             text = "Summer sale",
-                            onClick = { /* Handle click */ },
+                            onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) },
                             textColor = Color.Red // Text with red color for "Summer sale"
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         ImageWithText(
                             imageRes = R.drawable.black_image, // Add your image resource
                             text = "Black",
-                            onClick = { /* Handle click */ }
+                            onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) }
                         )
                     }
                 }
@@ -268,6 +268,7 @@ fun TheRowComposable(t1:String,t2:String,onClick: () -> Unit = {}) {
 
 
 data class Product(
+    val id: Int,
     val imageRes: Int,
     val discount: String,
     val rating: Int,
@@ -278,22 +279,25 @@ data class Product(
     val discountedPrice: String
 )
 @Composable
-fun ItemsDisplayRows(products: List<Product>) {
+fun ItemsDisplayRows(products: List<Product>,navController: NavController) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(products.size) { index ->
-            ProductCard(product = products[index])
+            ProductCard(
+                product = products[index]
+            ) { navController.navigate(Routes.itemDetailScreenRoute(products[index].id)) }
         }
     }
 }
 @Composable
-fun ProductCard(product: Product) {
+fun ProductCard(product: Product,onProductClick:() -> Unit) {
     Card(
         modifier = Modifier
             .width(180.dp) // Width of each item
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable { onProductClick() },
         colors = CardDefaults.cardColors(Color.White),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(4.dp)
@@ -394,6 +398,7 @@ fun ProductCard(product: Product) {
 
 val dummyProducts = listOf(
     Product(
+        id = 1,
         imageRes = R.drawable.im1, // Replace with your sample image
         discount = "-20%",
         rating = 5,
@@ -404,6 +409,7 @@ val dummyProducts = listOf(
         discountedPrice = "12$"
     ),
     Product(
+        id = 2,
         imageRes = R.drawable.im2, // Replace with your sample image
         discount = "-15%",
         rating = 4,
@@ -414,6 +420,7 @@ val dummyProducts = listOf(
         discountedPrice = "19$"
     ),
     Product(
+        id = 3,
         imageRes = R.drawable.im3, // Replace with your sample image
         discount = "-20%",
         rating = 5,
@@ -424,6 +431,7 @@ val dummyProducts = listOf(
         discountedPrice = "12$"
     ),
     Product(
+        id = 4,
         imageRes = R.drawable.im4, // Replace with your sample image
         discount = "-15%",
         rating = 4,
@@ -435,6 +443,7 @@ val dummyProducts = listOf(
     ),
     // More dummy products
     Product(
+        id = 5,
         imageRes = R.drawable.im5, // Replace with your sample image
         discount = "-10%",
         rating = 4,
@@ -445,6 +454,7 @@ val dummyProducts = listOf(
         discountedPrice = "31$"
     ),
     Product(
+        id = 6,
         imageRes = R.drawable.im6, // Replace with your sample image
         discount = "-30%",
         rating = 5,
@@ -455,6 +465,7 @@ val dummyProducts = listOf(
         discountedPrice = "14$"
     ),
     Product(
+        id = 7,
         imageRes = R.drawable.im7, // Replace with your sample image
         discount = "-50%",
         rating = 3,
@@ -465,6 +476,7 @@ val dummyProducts = listOf(
         discountedPrice = "125$"
     ),
     Product(
+        id = 8,
         imageRes = R.drawable.im8, // Replace with your sample image
         discount = "-25%",
         rating = 4,
@@ -475,6 +487,7 @@ val dummyProducts = listOf(
         discountedPrice = "67$"
     ),
     Product(
+        id = 9,
         imageRes = R.drawable.im9, // Replace with your sample image
         discount = "-40%",
         rating = 5,
@@ -485,6 +498,7 @@ val dummyProducts = listOf(
         discountedPrice = "36$"
     ),
     Product(
+        id = 10,
         imageRes = R.drawable.im10, // Replace with your sample image
         discount = "-35%",
         rating = 4,
@@ -495,6 +509,7 @@ val dummyProducts = listOf(
         discountedPrice = "52$"
     ),
     Product(
+        id = 11,
         imageRes = R.drawable.im1, // Replace with your sample image
         discount = "-18%",
         rating = 3,
@@ -505,6 +520,7 @@ val dummyProducts = listOf(
         discountedPrice = "41$"
     ),
     Product(
+        id = 12,
         imageRes = R.drawable.im2, // Replace with your sample image
         discount = "-22%",
         rating = 4,

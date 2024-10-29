@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -29,17 +28,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.models.ProductListItem
 import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
-import com.aman.fakestorecom.viewmodels.CategoryViewModel
-import com.aman.fakestorecom.viewmodels.ProductViewModel
-import kotlinx.coroutines.flow.forEach
+import com.aman.fakestorecom.viewmodels.apiproduct.CategoryViewModel
+import com.aman.fakestorecom.viewmodels.apiproduct.ProductViewModel
 
 @Composable
 fun ProductListScreen(
@@ -53,7 +49,7 @@ fun ProductListScreen(
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             DisplayCategory(
                 onCategorySelected = { category ->
                     if (category != null) {
@@ -61,7 +57,7 @@ fun ProductListScreen(
                     }
                 }
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             // Collect the product list state
             val products = viewModel.products.collectAsState().value
 
@@ -82,7 +78,6 @@ fun ProductListScreen(
             }
         }
     }
-
 }
 
 @Composable

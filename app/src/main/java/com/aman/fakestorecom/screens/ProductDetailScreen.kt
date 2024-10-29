@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -52,7 +51,7 @@ import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 import com.aman.fakestorecom.screens.home.homeicon.ItemsDisplayRows
 import com.aman.fakestorecom.screens.home.homeicon.TheRowComposable
 import com.aman.fakestorecom.screens.home.homeicon.dummyProducts
-import com.aman.fakestorecom.viewmodels.ProductViewModel
+import com.aman.fakestorecom.viewmodels.apiproduct.ProductViewModel
 
 @Composable
 fun ProductDetailScreen(
@@ -61,7 +60,6 @@ fun ProductDetailScreen(
     viewModel: ProductViewModel = hiltViewModel(),
 ) {
     Log.d("ProductDetailScreen", "Received productId: $productId") // Log product ID
-
     // Fetch the product details when the screen is launched
     LaunchedEffect(productId) {
         viewModel.fetchProductById(productId)
@@ -150,8 +148,9 @@ fun ProductDetailScreen(
                         )
                         Text(
                             text = it.title,
+                            fontWeight = FontWeight.SemiBold,
                             fontSize = 20.sp,
-                            color = Color.Gray
+                            color = Color.Black
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
@@ -220,7 +219,7 @@ fun ProductDetailScreen(
 
                 TheRowComposable(t1 = "New", t2 = "You can also like this")
 
-                ItemsDisplayRows(products = dummyProducts)
+                ItemsDisplayRows(products = dummyProducts,navController)
 
             }
         }

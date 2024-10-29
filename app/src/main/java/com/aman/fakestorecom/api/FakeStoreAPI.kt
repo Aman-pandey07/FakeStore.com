@@ -21,7 +21,7 @@ interface FakeStoreAPI {
     ): Response<List<ProductListItem>>
 
 
-    @GET("products/{id}")  // This is the correct endpoint for getting a single product
+    @GET("products/{id}")
     suspend fun getProductsById(@Path("id") id: Int): Response<ProductListItem>
 
 
