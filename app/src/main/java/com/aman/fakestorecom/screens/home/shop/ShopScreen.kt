@@ -1,6 +1,7 @@
 package com.aman.fakestorecom.screens.home.shop
 
-
+//TODO implement every click item with different dummy data for every category list
+//TODO the back button click is done and search button click is left because its main functionality has not been written
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
@@ -53,18 +57,23 @@ val kidsCategories = listOf(
 
 
 @Composable
-fun ShopContent() {
+fun ShopContent(navController: NavController) {
+    var selectedTab by remember { mutableStateOf(0) }
+    val categories = when (selectedTab) {
+        0 -> womenCategories
+        1 -> menCategories
+        2 -> kidsCategories
+        else -> emptyList()
+    }
 
 
+    PageBluePrint(
+        title = "Categories",
+        rightIcon = Icons.Default.Search,
+        {navController.navigateUp()},
+        {},
+    ){
 
-    PageBluePrint(title = "Categories", rightIcon = Icons.Default.Search) {
-        var selectedTab by remember { mutableStateOf(0) }
-        val categories = when (selectedTab) {
-            0 -> womenCategories
-            1 -> menCategories
-            2 -> kidsCategories
-            else -> emptyList()
-        }
 
         Column(
             modifier = Modifier
@@ -95,6 +104,7 @@ fun ShopContent() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clickable { navController.navigate(Routes.PRODUCT_LIST_SCREEN) }
                     .padding(horizontal = 16.dp, vertical = 5.dp),
                 colors = CardDefaults.cardColors(Color.Red),
 //                backgroundColor = Color.Red,
@@ -131,7 +141,7 @@ fun ShopContent() {
                 }
             }
 
-            RedGeneralButton(onClick = { /*TODO*/ }, text = "VIEW ALL ITEMS")
+            RedGeneralButton(onClick = { navController.navigate(Routes.PRODUCT_LIST_SCREEN) }, text = "VIEW ALL ITEMS")
             Text(
                 text = "Choose Category",
                 modifier = Modifier
@@ -189,7 +199,7 @@ fun ClickableCategories(text:String ,onClick: () -> Unit = {}) {
 @Composable
 fun CategoryCard(category: CategoryItem) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(Color.White)
@@ -212,7 +222,7 @@ fun CategoryCard(category: CategoryItem) {
                 painter = painterResource(id = category.imageRes),
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxHeight(),
+                    .height(110.dp),
                 contentDescription = category.name,
                 contentScale = ContentScale.Crop,
 
@@ -226,5 +236,6 @@ fun CategoryCard(category: CategoryItem) {
 @Preview(showBackground = true)
 @Composable
 fun ShopContentPreview() {
-    ShopContent()
+    val navController = rememberNavController()
+    ShopContent(navController )
 }

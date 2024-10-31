@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -25,7 +26,13 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PageBluePrint(title: String, rightIcon:ImageVector, content: @Composable () -> Unit) {
+fun PageBluePrint(
+    title: String,
+    rightIcon:ImageVector,
+    onBackIconClick:()->Unit,
+    onRightIconClick:()->Unit,
+    content: @Composable () -> Unit
+) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -37,13 +44,18 @@ fun PageBluePrint(title: String, rightIcon:ImageVector, content: @Composable () 
             topBar = {
                 CenterAlignedTopAppBar(
                     navigationIcon = {
-                        Icon(imageVector = Icons.Default.KeyboardArrowLeft,
-                            contentDescription ="Back button" )
-                                     },
+                        IconButton(
+                            onClick = { onBackIconClick() }
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                                contentDescription ="Back button"
+                            )
+                        }
+                         },
                     actions = {
                         IconButton(
-                            onClick = {/*handle onclick here*/},
-
+                            onClick = { onRightIconClick() },
                         ){
                             Icon(
                                 imageVector = rightIcon,
@@ -71,8 +83,10 @@ fun PageBluePrint(title: String, rightIcon:ImageVector, content: @Composable () 
     }
 
 }
+
+
 @Preview
 @Composable
 fun CustomTopBarPreview() {
-    PageBluePrint("FakeCommerce.com",Icons.Default.Search,content = {})
+    PageBluePrint("FakeCommerce.com",Icons.Default.Search,{},{},content = {})
 }

@@ -180,7 +180,7 @@ fun HomeScreenLayout(navController: NavController,authViewModel: AuthViewModel) 
                         HomeContent(navController) // Define HomeContent Composable
                     }
                     composable(Routes.SHOP_SCREEN) {
-                        ShopContent() // Define ShopContent Composable
+                        ShopContent(navController) // Define ShopContent Composable
                     }
                     composable(Routes.BAG_SCREEN) {
                         BagScreenContent() // Define ShopContent Composable
