@@ -205,41 +205,17 @@ fun ShopContent(navController: NavController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(categoriesListItem.size) { index ->
-                    ClickableCategories(listItem = categoriesListItem[index])
+                    ClickableCategories(listItem = categoriesListItem[index],navController)
                 }
             }
 
-
-
-//            ClickableCategories("Top") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Shirts & Blouses") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Cardigans & Sweaters") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Knitwear") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Blazers") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Outerwear") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Pants") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("jeans") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Shorts") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Skirts") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
-//            ClickableCategories("Dresses") {}
-////            HorizontalDivider(modifier = Modifier.padding(20.dp))
 
         }
     }
 }
 
 @Composable
-fun ClickableCategories(listItem: ShopScreenListItem) {
+fun ClickableCategories(listItem: ShopScreenListItem,navController: NavController) {
     Column(modifier = Modifier.padding(top = 10.dp)){
         Row (
             modifier = Modifier
