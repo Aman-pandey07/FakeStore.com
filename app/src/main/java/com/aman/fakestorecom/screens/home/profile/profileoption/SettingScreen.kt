@@ -29,11 +29,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
-fun SettingScreen() {
-    PageBluePrint(title = "Setting", rightIcon = Icons.Default.Search) {
+fun SettingScreen(navController: NavController) {
+    PageBluePrint(title = "Setting", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         Column(
             modifier = Modifier
             .fillMaxSize()
@@ -139,8 +141,8 @@ fun NotificationToggle(title: String, isCheckedInitial: Boolean) {
     }
 }
 
-@Preview
-@Composable
-fun SettingScreenPreview() {
-    SettingScreen()
-}
+//@Preview
+//@Composable
+//fun SettingScreenPreview() {
+//    SettingScreen()
+//}

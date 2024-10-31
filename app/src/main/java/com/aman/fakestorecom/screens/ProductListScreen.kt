@@ -42,7 +42,12 @@ fun ProductListScreen(
     navController: NavController,
     viewModel: ProductViewModel = hiltViewModel()
 ) {
-    PageBluePrint(title = "Products", rightIcon = Icons.Default.Search) {
+    PageBluePrint(
+        title = "Products",
+        rightIcon = Icons.Default.Search,
+        {navController.navigateUp()},
+        {}
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

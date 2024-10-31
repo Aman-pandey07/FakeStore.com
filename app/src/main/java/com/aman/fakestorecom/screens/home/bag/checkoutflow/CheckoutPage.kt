@@ -35,7 +35,8 @@ import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
 fun CheckoutPage(navController: NavController) {
-    PageBluePrint(title = "Checkout", rightIcon = Icons.Default.Notifications) {
+    PageBluePrint(title = "Checkout", rightIcon = Icons.Default.Notifications,{navController.navigateUp()},
+        {}) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

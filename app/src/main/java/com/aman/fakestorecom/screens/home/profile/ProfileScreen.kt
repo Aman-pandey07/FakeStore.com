@@ -34,13 +34,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
 @Composable
-fun ProfileContent(authViewModel: AuthViewModel) {
-    PageBluePrint(title = "My Profile", rightIcon = Icons.Default.Search) {
+fun ProfileContent(navController: NavController,authViewModel: AuthViewModel) {
+    PageBluePrint(title = "My Profile", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

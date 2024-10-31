@@ -40,13 +40,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
-fun FavoriteContent() {
-    PageBluePrint(title = "", rightIcon = Icons.Default.Search) {
+fun FavoriteContent(navController: NavController) {
+    PageBluePrint(title = "", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         var selectedFilter by remember { mutableStateOf("T-Shirts") }
         var priceSort by remember { mutableStateOf(true) }
         Column(
@@ -207,11 +209,11 @@ fun RatingBar(rating: Int) {
     }
 }
 
-@Preview
-@Composable
-fun FavoriteContentPreview() {
-    FavoriteContent()
-}
+//@Preview
+//@Composable
+//fun FavoriteContentPreview() {
+//    FavoriteContent()
+//}
 
 data class Product(
     val name: String,

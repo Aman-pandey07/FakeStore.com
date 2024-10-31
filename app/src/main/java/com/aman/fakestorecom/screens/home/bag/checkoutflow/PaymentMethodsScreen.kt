@@ -43,7 +43,8 @@ import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
 fun PaymentMethodsScreen(navController: NavController) {
-    PageBluePrint(title = "Payment Methods", rightIcon = Icons.Default.Lock) {
+    PageBluePrint(title = "Payment Methods", rightIcon = Icons.Default.Lock,{navController.navigateUp()},
+        {}) {
         var showDialog by remember { mutableStateOf(false) }
         Scaffold(
             floatingActionButton = {

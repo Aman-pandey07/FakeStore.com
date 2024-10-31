@@ -70,7 +70,12 @@ fun ProductDetailScreen(
 
     // UI layout for product details
     specificProduct?.let {
-        PageBluePrint(title = "Product Details",rightIcon = Icons.Default.Share){
+        PageBluePrint(
+            title = "Product Details",
+            rightIcon = Icons.Default.Share,
+            {navController.navigateUp()},
+            {/* TODO Search icon click implementation left*/}
+        ){
             //Item Details Screen Content from here to bottom
             var selectedSize by remember { mutableStateOf("Size") }
             var selectedColor by remember { mutableStateOf("Black") }

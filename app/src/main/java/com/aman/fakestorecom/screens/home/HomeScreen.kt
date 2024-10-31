@@ -1,7 +1,6 @@
 package com.aman.fakestorecom.screens.home
 
 
-import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -33,13 +32,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -51,7 +48,6 @@ import com.aman.fakestorecom.screens.home.favorites.FavoriteContent
 import com.aman.fakestorecom.screens.home.homeicon.HomeContent
 import com.aman.fakestorecom.screens.home.profile.ProfileContent
 import com.aman.fakestorecom.screens.home.shop.ShopContent
-import com.aman.fakestorecom.screens.loginsignup.ExitDialog
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthState
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
@@ -183,13 +179,13 @@ fun HomeScreenLayout(navController: NavController,authViewModel: AuthViewModel) 
                         ShopContent(navController) // Define ShopContent Composable
                     }
                     composable(Routes.BAG_SCREEN) {
-                        BagScreenContent() // Define ShopContent Composable
+                        BagScreenContent(navController) // Define ShopContent Composable
                     }
                     composable(Routes.FAVORITE_SCREEN) {
-                        FavoriteContent() // Define FavoriteContent Composable
+                        FavoriteContent(navController) // Define FavoriteContent Composable
                     }
                     composable(Routes.PROFILE_SCREEN) {
-                        ProfileContent(authViewModel) // Define ProfileContent Composable
+                        ProfileContent(navController,authViewModel) // Define ProfileContent Composable
                     }
                 }
             }

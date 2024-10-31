@@ -32,13 +32,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
-fun OrderDetailsScreen() {
-    PageBluePrint(title = "Order Details", rightIcon = Icons.Default.Search) {
+fun OrderDetailsScreen(navController: NavController) {
+    PageBluePrint(title = "Order Details", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         Column {
             Spacer(modifier = Modifier.height(45.dp))
             LazyColumn(
@@ -257,8 +259,8 @@ fun OrderInformation(shippingAddress: String, paymentMethod: String, deliveryMet
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OrderDetailsScreenPreview() {
-    OrderDetailsScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun OrderDetailsScreenPreview() {
+//    OrderDetailsScreen()
+//}

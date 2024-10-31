@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.R
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
@@ -56,8 +57,9 @@ data class CartItem(
 )
 
 @Composable
-fun BagScreenContent() {
-    PageBluePrint(title = "My Bag", rightIcon = Icons.Default.Search) {
+fun BagScreenContent(navController: NavController) {
+    PageBluePrint(title = "My Bag", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         val cartItems = listOf(
             CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", "51$"),
             CartItem(R.drawable.bag_image2, "T-Shirt", "Gray", "L", "30$"),
@@ -193,8 +195,8 @@ fun PromoCodeInput(promoCode: String, onPromoCodeChange: (String) -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun BagScreenContentPreview() {
-    BagScreenContent()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun BagScreenContentPreview() {
+//    BagScreenContent()
+//}

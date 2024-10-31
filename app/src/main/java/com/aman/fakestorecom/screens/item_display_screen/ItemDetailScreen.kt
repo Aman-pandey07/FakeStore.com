@@ -209,7 +209,8 @@ fun ItemDetailsScreen(navController: NavController,productId: Int) {
 
     // Display content only if the product is found
     product?.let {
-        PageBluePrint(title = "Product Details", rightIcon = Icons.Default.Share) {
+        PageBluePrint(title = "Product Details", rightIcon = Icons.Default.Share,{navController.navigateUp()},
+            {}) {
             //Item Details Screen Content from here to bottom
             var selectedSize by remember { mutableStateOf("Size") }
             var selectedColor by remember { mutableStateOf("Black") }

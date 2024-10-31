@@ -41,14 +41,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.home.favorites.Product
 import com.aman.fakestorecom.screens.home.favorites.productList
 
 
 @Composable
-fun MyOrdersScreen(modifier: Modifier = Modifier) {
-    PageBluePrint(title = "My Orders", rightIcon = Icons.Default.Search) {
+fun MyOrdersScreen(modifier: Modifier = Modifier,navController: NavController) {
+    PageBluePrint(title = "My Orders", rightIcon = Icons.Default.Search,{navController.navigateUp()},
+        {}) {
         var selectedFilter by remember { mutableStateOf("Delivered") }
         Column(
             modifier = Modifier
@@ -201,11 +203,11 @@ fun LazyButton(
     }
 }
 
-@Preview
-@Composable
-fun MyOrdersScreenPreview() {
-    MyOrdersScreen()
-}
+//@Preview
+//@Composable
+//fun MyOrdersScreenPreview() {
+//    MyOrdersScreen()
+//}
 
 data class ButtonItem(
     val name: String
