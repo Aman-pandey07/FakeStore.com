@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -33,6 +34,43 @@ import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 data class CategoryItem(val name: String, val imageRes: Int)
+data class ShopScreenListItem(val name:String, var onCatItemClick: () -> Unit)
+
+val womenCategoriesListItem = listOf(
+    ShopScreenListItem("Handbag") {},
+    ShopScreenListItem("Dress") {},
+    ShopScreenListItem("Scarf") {},
+    ShopScreenListItem("Heels") {},
+    ShopScreenListItem("Blouse") {},
+    ShopScreenListItem("Earrings") {},
+    ShopScreenListItem("Sandals") {},
+    ShopScreenListItem("Skirt") {},
+    ShopScreenListItem("Perfume") {},
+)
+
+val menCategoriesListItem = listOf(
+    ShopScreenListItem("Watch"){},
+    ShopScreenListItem("Sunglasses"){},
+    ShopScreenListItem("Sweater"){},
+    ShopScreenListItem("Shirt"){},
+    ShopScreenListItem("Jeans"){},
+    ShopScreenListItem("Cap"){},
+    ShopScreenListItem("Shoes"){},
+    ShopScreenListItem("Shorts"){},
+    ShopScreenListItem("Jacket"){},
+)
+
+val kidsCategoriesListItem = listOf(
+    ShopScreenListItem("T-Shirt"){},
+    ShopScreenListItem("Toy Car"){},
+    ShopScreenListItem("Jacket"){},
+    ShopScreenListItem("Sneakers"){},
+    ShopScreenListItem("Hat"){},
+    ShopScreenListItem("Backpack"){},
+    ShopScreenListItem("Shorts"){},
+    ShopScreenListItem("Socks"){},
+    ShopScreenListItem("Puzzle"){},
+)
 
 // List of categories
 val womenCategories = listOf(
@@ -58,6 +96,8 @@ val kidsCategories = listOf(
 
 @Composable
 fun ShopContent(navController: NavController) {
+
+
     var selectedTab by remember { mutableStateOf(0) }
     val categories = when (selectedTab) {
         0 -> womenCategories
@@ -65,6 +105,15 @@ fun ShopContent(navController: NavController) {
         2 -> kidsCategories
         else -> emptyList()
     }
+
+    val categoriesListItem = when (selectedTab) {
+        0 -> womenCategoriesListItem
+        1 -> menCategoriesListItem
+        2 -> kidsCategoriesListItem
+        else -> emptyList()
+    }
+
+
 
 
     PageBluePrint(
@@ -149,50 +198,68 @@ fun ShopContent(navController: NavController) {
                     .padding(start = 10.dp),
                 fontWeight = FontWeight.Light
             )
-            ClickableCategories("Top") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Shirts & Blouses") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Cardigans & Sweaters") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Knitwear") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Blazers") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Outerwear") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Pants") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("jeans") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Shorts") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Skirts") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
-            ClickableCategories("Dresses") {}
-            HorizontalDivider(modifier = Modifier.padding(20.dp))
+
+            LazyColumn(
+                modifier = Modifier.height(400.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(categoriesListItem.size) { index ->
+                    ClickableCategories(listItem = categoriesListItem[index])
+                }
+            }
+
+
+
+//            ClickableCategories("Top") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Shirts & Blouses") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Cardigans & Sweaters") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Knitwear") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Blazers") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Outerwear") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Pants") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("jeans") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Shorts") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Skirts") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
+//            ClickableCategories("Dresses") {}
+////            HorizontalDivider(modifier = Modifier.padding(20.dp))
 
         }
     }
 }
 
 @Composable
-fun ClickableCategories(text:String ,onClick: () -> Unit = {}) {
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp)
-            .clickable { onClick() }
-    ){
-        Text(
-            text = text,
-            modifier = Modifier.weight(1f)
-        )
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowRight,
-            contentDescription = null, modifier = Modifier.padding(end = 20.dp)
-        )
+fun ClickableCategories(listItem: ShopScreenListItem) {
+    Column(modifier = Modifier.padding(top = 10.dp)){
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp)
+                .clickable { listItem.onCatItemClick }
+        ){
+            Text(
+                text = listItem.name,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null, modifier = Modifier.padding(end = 20.dp)
+            )
+        }
+        HorizontalDivider(modifier = Modifier.padding(20.dp))
     }
+
 }
 
 
@@ -225,7 +292,6 @@ fun CategoryCard(category: CategoryItem) {
                     .height(110.dp),
                 contentDescription = category.name,
                 contentScale = ContentScale.Crop,
-
             )
         }
     }
