@@ -28,7 +28,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,8 +45,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
@@ -53,19 +57,24 @@ data class CartItem(
     val name: String,
     val color: String,
     val size: String,
-    val price: String
+    val price: Int,
+    var quantity: Int = 1
 )
 
 @Composable
 fun BagScreenContent(navController: NavController) {
     PageBluePrint(title = "My Bag", rightIcon = Icons.Default.Search,{navController.navigateUp()},
         {}) {
-        val cartItems = listOf(
-            CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", "51$"),
-            CartItem(R.drawable.bag_image2, "T-Shirt", "Gray", "L", "30$"),
-            CartItem(R.drawable.bag_image3, "Sport Dress", "Black", "M", "43$")
-        )
-        var totalAmount = cartItems.sumOf { it.price.removeSuffix("$").toInt() }
+        val cartItems = remember {
+            mutableStateListOf(
+                CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", 51),
+                CartItem(R.drawable.bag_image2, "T-Shirt", "Gray", "L", 30),
+                CartItem(R.drawable.bag_image3, "Sport Dress", "Black", "M", 43)
+            )
+        }
+        val totalAmount by remember {
+            derivedStateOf { cartItems.sumOf { it.price * it.quantity } }
+        }
         var promoCode by remember { mutableStateOf("") }
         Column(
                 modifier = Modifier
@@ -86,7 +95,11 @@ fun BagScreenContent(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(cartItems) { item ->
-                    CartItemRow(item = item)
+                    CartItemRow(item = item, onIncreaseQuantity = {
+                        item.quantity++
+                    }, onDecreaseQuantity = {
+                        if (item.quantity > 1) item.quantity--
+                    })
                 }
             }
 
@@ -109,9 +122,9 @@ fun BagScreenContent(navController: NavController) {
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                        text = "${totalAmount}$",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
+                    text = "${totalAmount}$",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
                 )
             }
 //            Text(
@@ -119,13 +132,17 @@ fun BagScreenContent(navController: NavController) {
 //                fontWeight = FontWeight.Bold,
 //                fontSize = 20.sp
 //            )
-            RedGeneralButton(onClick = { /*TODO*/ }, text = "CHECK OUT")
+            RedGeneralButton(onClick = { navController.navigate(Routes.CHECKOUT_SCREEN) }, text = "CHECK OUT")
         }
     }
 }
 
 @Composable
-fun CartItemRow(item: CartItem) {
+fun CartItemRow(
+    item: CartItem,
+    onIncreaseQuantity: () -> Unit,
+    onDecreaseQuantity: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,7 +151,7 @@ fun CartItemRow(item: CartItem) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = rememberImagePainter(item.imageRes),
+            painter = painterResource(id = item.imageRes),
             contentDescription = item.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
@@ -150,18 +167,18 @@ fun CartItemRow(item: CartItem) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /* Decrease quantity logic */ }) {
-                Icon(Icons.Default.Clear, contentDescription = "Decrease")
+            IconButton(onClick = onDecreaseQuantity) {
+                Icon(Icons.Default.Clear, contentDescription = "Decrease quantity")
             }
-            Text(text = "1")
-            IconButton(onClick = { /* Increase quantity logic */ }) {
-                Icon(Icons.Default.Add, contentDescription = "Increase")
+            Text(text = item.quantity.toString(),fontWeight = FontWeight.Bold)
+            IconButton(onClick = onIncreaseQuantity) {
+                Icon(Icons.Default.Add, contentDescription = "Increase quantity")
             }
         }
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        Text(text = item.price, fontWeight = FontWeight.Bold)
+        Text(text = "${item.price}$", fontWeight = FontWeight.Bold)
     }
 }
 
@@ -195,8 +212,9 @@ fun PromoCodeInput(promoCode: String, onPromoCodeChange: (String) -> Unit) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun BagScreenContentPreview() {
-//    BagScreenContent()
-//}
+@Preview(showBackground = true)
+@Composable
+fun BagScreenContentPreview() {
+    val navController = rememberNavController()
+    BagScreenContent(navController)
+}

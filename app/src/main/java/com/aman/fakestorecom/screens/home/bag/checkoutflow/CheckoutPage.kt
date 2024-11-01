@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
@@ -126,7 +127,7 @@ fun CheckoutPage(navController: NavController) {
                 Divider(modifier = Modifier.padding(vertical = 8.dp))
                 OrderSummaryItem(label = "Summary:", amount = "127$")
             }
-            RedGeneralButton(onClick = { /*TODO*/ }, text = "SUBMIT ORDER")
+            RedGeneralButton(onClick = { navController.navigate(Routes.PAYMENT_SCREEN)}, text = "SUBMIT ORDER")
         }
     }
 }

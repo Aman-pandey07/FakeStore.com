@@ -1,14 +1,21 @@
 package com.aman.fakestorecom.screens.home.shop
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,12 +51,31 @@ fun ShopCatListListScreen(
 
     Scaffold {
         currentCategory?.let { category ->
-            LazyColumn(modifier = Modifier.padding(16.dp).padding(it)) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
                 items(category.items) { item ->
                     ItemCard(item = item)
                 }
             }
-        } ?: Text("Category not found", style = MaterialTheme.typography.bodyLarge)
+//            LazyColumn(modifier = Modifier
+//                .padding(16.dp)
+//                .padding(it)
+//            ) {
+//                items(category.items) { item ->
+//                    ItemCard(item = item)
+//                }
+//            }
+        } ?: Column {
+            Spacer(modifier = Modifier.height(60.dp))
+            Text("No Data found", style = MaterialTheme.typography.bodyLarge)
+        }
     }
 
 
@@ -86,16 +113,15 @@ fun ShopCatListListScreen(
 fun ItemCard(item: Item) {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(vertical = 8.dp)
+        .padding(vertical = 8.dp),
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = item.name, style = MaterialTheme.typography.titleMedium)
-            Text(text = "Type: ${item.type}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = item.description, style = MaterialTheme.typography.bodySmall)
-            Text(text = "Price: ${item.price}", style = MaterialTheme.typography.bodyMedium)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
             // Load image using Coil or another image loader
             Image(
                 painter = rememberImagePainter(item.imageUrl),
@@ -105,6 +131,11 @@ fun ItemCard(item: Item) {
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = item.name.uppercase(), style = MaterialTheme.typography.titleMedium)
+            Text(text = "Type: ${item.type}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = item.description, style = MaterialTheme.typography.bodySmall)
+            Text(text = "Price: ${item.price}", style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
