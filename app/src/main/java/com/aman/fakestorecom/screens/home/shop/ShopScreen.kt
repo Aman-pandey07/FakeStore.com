@@ -37,7 +37,7 @@ data class CategoryItem(val name: String, val imageRes: Int)
 data class ShopScreenListItem(val name:String, var onCatItemClick: () -> Unit)
 
 val womenCategoriesListItem = listOf(
-    ShopScreenListItem("Handbag") {},
+    ShopScreenListItem("Handbag") {  },
     ShopScreenListItem("Dress") {},
     ShopScreenListItem("Scarf") {},
     ShopScreenListItem("Heels") {},
@@ -178,7 +178,7 @@ fun ShopContent(navController: NavController) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(13.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
             LazyColumn(
                 modifier = Modifier.height(400.dp),
@@ -200,12 +200,15 @@ fun ShopContent(navController: NavController) {
             )
 
             LazyColumn(
-                modifier = Modifier.height(400.dp),
+                modifier = Modifier.height(600.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(categoriesListItem.size) { index ->
-                    ClickableCategories(listItem = categoriesListItem[index],navController)
+                    ClickableCategories(
+                        listItem = categoriesListItem[index],
+                        navController = navController
+                    )
                 }
             }
 
@@ -221,7 +224,9 @@ fun ClickableCategories(listItem: ShopScreenListItem,navController: NavControlle
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp)
-                .clickable { listItem.onCatItemClick }
+                .clickable {
+                    navController.navigate("shopcatlistlistscreen/${listItem.name}")
+                }
         ){
             Text(
                 text = listItem.name,

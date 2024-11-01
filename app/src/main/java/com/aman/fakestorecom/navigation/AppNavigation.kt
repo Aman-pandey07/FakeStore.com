@@ -13,11 +13,13 @@ import com.aman.fakestorecom.screens.home.HomeScreenLayout
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.CheckoutPage
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.PaymentMethodsScreen
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.SuccessScreen
+import com.aman.fakestorecom.screens.home.shop.ShopCatListListScreen
 import com.aman.fakestorecom.screens.item_display_screen.ItemDetailsScreen
 import com.aman.fakestorecom.screens.loginsignup.MyForgetPasswordScreen
 import com.aman.fakestorecom.screens.loginsignup.MyLoginScreen
 import com.aman.fakestorecom.screens.loginsignup.MySignupScreen
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
+import okhttp3.Route
 
 
 @Composable
@@ -68,6 +70,14 @@ fun App(authViewModel: AuthViewModel) {
             val productId = backStackEntry.arguments?.getInt("productId") ?: 0
             Log.d("Navigation", "Navigating to ProductDetailScreen with productId: $productId")
             ProductDetailScreen(navController, productId)
+        }
+
+        composable(
+            route = "shopcatlistlistscreen/{categoryName}",
+            arguments = listOf(navArgument("categoryName") {type = NavType.StringType})
+        ) {backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName")?: "Unknown"
+            ShopCatListListScreen(navController,categoryName = categoryName)
         }
     }
 }
