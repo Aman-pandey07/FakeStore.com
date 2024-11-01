@@ -80,16 +80,16 @@ val womenCategories = listOf(
     CategoryItem("Accessories", R.drawable.accessories_image)
 )
 val menCategories = listOf(
-    CategoryItem("T-Shirts", R.drawable.mens_tshirt),
-    CategoryItem("Jeans", R.drawable.mens_jeans),
-    CategoryItem("Shoes", R.drawable.mens_shoes),
-    CategoryItem("Watches", R.drawable.mens_watch)
+    CategoryItem("Mens:T-Shirts", R.drawable.mens_tshirt),
+    CategoryItem("Mens:Jeans", R.drawable.mens_jeans),
+    CategoryItem("Mens:Shoes", R.drawable.mens_shoes),
+    CategoryItem("Mens:Watches", R.drawable.mens_watch)
 )
 val kidsCategories = listOf(
-    CategoryItem("Toys", R.drawable.kids_toys),
-    CategoryItem("Clothes", R.drawable.kids_cloths),
-    CategoryItem("Shoes", R.drawable.kids_shoes),
-    CategoryItem("Books", R.drawable.kids_books)
+    CategoryItem("Kids-Toys", R.drawable.kids_toys),
+    CategoryItem("Kids-Clothes", R.drawable.kids_cloths),
+    CategoryItem("kids-Shoes", R.drawable.kids_shoes),
+    CategoryItem("kids-Books", R.drawable.kids_books)
 )
 
 
@@ -186,7 +186,10 @@ fun ShopContent(navController: NavController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(categories.size) { index ->
-                    CategoryCard(category = categories[index])
+                    CategoryCard(
+                        category = categories[index],
+                        navController = navController
+                        )
                 }
             }
 
@@ -245,11 +248,12 @@ fun ClickableCategories(listItem: ShopScreenListItem,navController: NavControlle
 
 
 @Composable
-fun CategoryCard(category: CategoryItem) {
+fun CategoryCard(category: CategoryItem,navController: NavController) {
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(4.dp),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .clickable { navController.navigate("shopcatlistlistscreen/${category.name}") },
         colors = CardDefaults.cardColors(Color.White)
     ) {
         Row(
