@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
@@ -76,7 +77,10 @@ fun PaymentMethodsScreen(navController: NavController) {
                 if (showDialog) {
                     AddCardDialog(onDismiss = { showDialog = false })
                 }
+                Spacer(modifier = Modifier.height(15.dp))
+                RedGeneralButton(onClick = { navController.navigate(Routes.SUCCESS_SCREEN) }, text = "Proceed Payment")
             }
+
         }
     }
 }

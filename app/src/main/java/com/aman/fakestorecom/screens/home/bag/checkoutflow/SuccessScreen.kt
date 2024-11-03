@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 
 @Composable
@@ -49,9 +50,10 @@ fun SuccessScreen(navController: NavController) {
                 text = "Your order will be delivered soon \nThank you for choosing our app!",
                 style = MaterialTheme.typography.labelMedium
             )
-        }
 
-        RedGeneralButton(onClick = { /*TODO*/ }, text = "CONTINUE SHOPPING")
+        }
+        RedGeneralButton(onClick = { navController.navigate(Routes.HOME_SCREEN)}, text = "CONTINUE SHOPPING")
+
     }
 }
 

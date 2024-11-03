@@ -42,13 +42,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.screens.home.favorites.Product
 import com.aman.fakestorecom.screens.home.favorites.productList
+import okhttp3.Route
 
 
 @Composable
-fun MyOrdersScreen(modifier: Modifier = Modifier,navController: NavController) {
+fun MyOrdersScreen(navController: NavController) {
     PageBluePrint(title = "My Orders", rightIcon = Icons.Default.Search,{navController.navigateUp()},
         {}) {
         var selectedFilter by remember { mutableStateOf("Delivered") }
@@ -76,7 +78,7 @@ fun MyOrdersScreen(modifier: Modifier = Modifier,navController: NavController) {
 
             LazyColumn {
                 items(OrderList) { order ->
-                    ProductCard(order = order)
+                    ProductCard(order = order) { navController.navigate(Routes.ORDER_DETAILS_PAGE) }
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
@@ -86,7 +88,7 @@ fun MyOrdersScreen(modifier: Modifier = Modifier,navController: NavController) {
 
 
 @Composable
-fun ProductCard(order:Orders) {
+fun ProductCard(order:Orders,onDetailBtnClick:()->Unit) {
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
@@ -152,7 +154,7 @@ fun ProductCard(order:Orders) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OutlinedButton(
-                    onClick = { /* Handle details click */ },
+                    onClick = { onDetailBtnClick() },
                     border = BorderStroke(1.dp, Color.Black),
                     shape = RoundedCornerShape(50),
                     modifier = Modifier.size(width = 100.dp, height = 40.dp)

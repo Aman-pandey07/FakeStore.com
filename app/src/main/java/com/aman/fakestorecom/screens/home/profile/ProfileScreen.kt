@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 
@@ -56,7 +57,9 @@ fun ProfileContent(navController: NavController,authViewModel: AuthViewModel) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(bottom=24.dp).fillMaxWidth()
+                    .padding(bottom=24.dp)
+                    .fillMaxWidth()
+                    .clickable { navController.navigate(Routes.MY_PROFILE_DETAIL_SCREEN) }
             ){
             Image(
                 painter = painterResource(id = R.drawable.mens_watch ), // Replace with image URL or resource
@@ -84,39 +87,38 @@ fun ProfileContent(navController: NavController,authViewModel: AuthViewModel) {
             // Orders
             ProfileItem(
                 title = "My orders",
-                subtitle = "Already have 12 orders",
-                {}
-            )
+                subtitle = "Already have 12 orders"
+            ) {navController.navigate(Routes.MY_ORDERS_PAGE)}
 
             // Shipping Addresses
             ProfileItem(
                 title = "Shipping addresses",
-                subtitle = "3 addresses",{}
-            )
+                subtitle = "3 addresses"
+            ) {navController.navigate(Routes.SHIPPING_ADDRESS_SCREEN)}
 
             // Payment Methods
             ProfileItem(
                 title = "Payment methods",
-                subtitle = "Visa **34",{}
-            )
+                subtitle = "Visa **34"
+            ) {navController.navigate(Routes.PAYMENT_SCREEN)}
 
             // Promocodes
             ProfileItem(
                 title = "Promocodes",
-                subtitle = "You have special promocodes",{}
-            )
+                subtitle = "You have special promocodes"
+            ) {}
 
             // My Reviews
             ProfileItem(
                 title = "My reviews",
-                subtitle = "Reviews for 4 items",{}
-            )
+                subtitle = "Reviews for 4 items"
+            ) {}
 
             // Settings
             ProfileItem(
                 title = "Settings",
-                subtitle = "Notifications, password",{}
-            )
+                subtitle = "Notifications, password"
+            ) {navController.navigate(Routes.SETTING_SCREEN)}
             ProfileItem(
                 // TODO implement signout here
                 title = "Logout",

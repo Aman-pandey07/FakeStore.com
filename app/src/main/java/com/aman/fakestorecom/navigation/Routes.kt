@@ -23,4 +23,12 @@ object Routes {
 
     const val SHOP_CAT_LIST_SCREEN = "shopcatlistlistscreen"
 
+    const val MY_ORDERS_PAGE = "myorders"
+
+    const val ORDER_DETAILS_PAGE = "orderdetails"
+    const val SETTING_SCREEN = "setting"
+    const val MY_PROFILE_DETAIL_SCREEN ="myprofile"
+    const val ADD_SHIPPING_ADDRESS_SCREEN = "addshippingaddress"
+    const val SHIPPING_ADDRESS_SCREEN = "shippingaddress"
+
 }

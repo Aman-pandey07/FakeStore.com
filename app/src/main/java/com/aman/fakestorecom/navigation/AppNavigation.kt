@@ -13,6 +13,13 @@ import com.aman.fakestorecom.screens.home.HomeScreenLayout
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.CheckoutPage
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.PaymentMethodsScreen
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.SuccessScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.MyOrdersScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.OrderDetailsScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.ProfileScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.SettingScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.shiping_address.AddShippingAddressScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.shiping_address.Address
+import com.aman.fakestorecom.screens.home.profile.profileoption.shiping_address.ShippingAddressesScreen
 import com.aman.fakestorecom.screens.home.shop.ShopCatListListScreen
 import com.aman.fakestorecom.screens.item_display_screen.ItemDetailsScreen
 import com.aman.fakestorecom.screens.loginsignup.MyForgetPasswordScreen
@@ -21,7 +28,32 @@ import com.aman.fakestorecom.screens.loginsignup.MySignupScreen
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 import okhttp3.Route
 
-
+val dummyAddresses = listOf(
+    Address(
+        name = "Jane Doe",
+        addressLine = "3 Newbridge Court",
+        city = "Chino Hills",
+        state = "CA",
+        zipCode = "91709",
+        country = "United States"
+    ),
+    Address(
+        name = "John Doe",
+        addressLine = "3 Newbridge Court",
+        city = "Chino Hills",
+        state = "CA",
+        zipCode = "91709",
+        country = "United States"
+    ),
+    Address(
+        name = "John Doe",
+        addressLine = "51 Riverside",
+        city = "Chino Hills",
+        state = "CA",
+        zipCode = "91709",
+        country = "United States"
+    )
+)
 @Composable
 fun App(authViewModel: AuthViewModel) {
     val navController = rememberNavController()
@@ -79,5 +111,25 @@ fun App(authViewModel: AuthViewModel) {
             val categoryName = backStackEntry.arguments?.getString("categoryName")?: "Unknown"
             ShopCatListListScreen(navController,categoryName = categoryName)
         }
+
+        composable(Routes.MY_ORDERS_PAGE) {
+            MyOrdersScreen(navController)
+        }
+        composable(Routes.ORDER_DETAILS_PAGE) {
+            OrderDetailsScreen(navController)
+        }
+        composable(Routes.SETTING_SCREEN) {
+            SettingScreen(navController)
+        }
+        composable(Routes.MY_PROFILE_DETAIL_SCREEN) {
+            ProfileScreen(navController,{},{},{})
+        }
+        composable(Routes.SHIPPING_ADDRESS_SCREEN) {
+            ShippingAddressesScreen(navController,addresses = dummyAddresses,{},{navController.navigate(Routes.ADD_SHIPPING_ADDRESS_SCREEN)})
+        }
+        composable(Routes.ADD_SHIPPING_ADDRESS_SCREEN) {
+            AddShippingAddressScreen(navController) {navController.navigate(Routes.SHIPPING_ADDRESS_SCREEN)}
+        }
     }
 }
+
