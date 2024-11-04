@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
@@ -46,7 +48,11 @@ fun OnboardingScreen(onFinished: () -> Unit) {
 
     val scope = rememberCoroutineScope()
 
-    Scaffold(bottomBar = {
+    Scaffold(
+        modifier = Modifier
+            .navigationBarsPadding()
+            .statusBarsPadding(),
+        bottomBar = {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

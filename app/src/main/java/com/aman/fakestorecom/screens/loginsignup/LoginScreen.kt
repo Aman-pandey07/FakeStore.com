@@ -86,6 +86,9 @@ fun MyLoginScreen(navController: NavHostController,authViewModel: AuthViewModel)
     }
     // Scaffold ensures we handle top and bottom navigation bars correctly
     Scaffold(
+        modifier = Modifier
+            .navigationBarsPadding()
+            .statusBarsPadding(),
         topBar = {
             TopAppBar(
                 navigationIcon = {
@@ -109,7 +112,7 @@ fun MyLoginScreen(navController: NavHostController,authViewModel: AuthViewModel)
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .navigationBarsPadding() // Adds padding for bottom navigation bar
+                .navigationBarsPadding()
                 .statusBarsPadding()
                 .fillMaxSize()
                 .padding(16.dp),
