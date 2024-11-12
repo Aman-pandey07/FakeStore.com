@@ -35,12 +35,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
 fun OrderDetailsScreen(navController: NavController) {
     PageBluePrint(title = "Order Details", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         Column {
             Spacer(modifier = Modifier.height(45.dp))
             LazyColumn(

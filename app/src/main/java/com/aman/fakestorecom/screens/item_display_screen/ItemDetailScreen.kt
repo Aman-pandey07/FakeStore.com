@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.RedGeneralButton
 import com.aman.fakestorecom.screens.home.homeicon.ItemsDisplayRows
 import com.aman.fakestorecom.screens.home.homeicon.Product
@@ -210,7 +211,7 @@ fun ItemDetailsScreen(navController: NavController,productId: Int) {
     // Display content only if the product is found
     product?.let {
         PageBluePrint(title = "Product Details", rightIcon = Icons.Default.Share,{navController.navigateUp()},
-            {}) {
+            {navController.navigate(Routes.SEARCH_SCREEN)}) {
             //Item Details Screen Content from here to bottom
             var selectedSize by remember { mutableStateOf("Size") }
             var selectedColor by remember { mutableStateOf("Black") }

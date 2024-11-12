@@ -30,5 +30,6 @@ object Routes {
     const val MY_PROFILE_DETAIL_SCREEN ="myprofile"
     const val ADD_SHIPPING_ADDRESS_SCREEN = "addshippingaddress"
     const val SHIPPING_ADDRESS_SCREEN = "shippingaddress"
+    const val SEARCH_SCREEN = "searchscreen"
 
 }

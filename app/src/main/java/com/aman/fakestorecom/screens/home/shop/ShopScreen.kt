@@ -120,7 +120,7 @@ fun ShopContent(navController: NavController) {
         title = "Categories",
         rightIcon = Icons.Default.Search,
         {navController.navigateUp()},
-        {},
+        {navController.navigate(Routes.SEARCH_SCREEN)},
     ){
 
 

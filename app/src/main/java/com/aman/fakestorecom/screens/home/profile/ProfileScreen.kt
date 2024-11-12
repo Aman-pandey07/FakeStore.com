@@ -43,7 +43,7 @@ import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 @Composable
 fun ProfileContent(navController: NavController,authViewModel: AuthViewModel) {
     PageBluePrint(title = "My Profile", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

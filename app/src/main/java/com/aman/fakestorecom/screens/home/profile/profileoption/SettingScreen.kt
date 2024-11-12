@@ -30,12 +30,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
 fun SettingScreen(navController: NavController) {
     PageBluePrint(title = "Setting", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         Column(
             modifier = Modifier
             .fillMaxSize()

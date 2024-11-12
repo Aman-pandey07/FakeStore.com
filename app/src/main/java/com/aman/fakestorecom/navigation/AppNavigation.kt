@@ -25,6 +25,7 @@ import com.aman.fakestorecom.screens.item_display_screen.ItemDetailsScreen
 import com.aman.fakestorecom.screens.loginsignup.MyForgetPasswordScreen
 import com.aman.fakestorecom.screens.loginsignup.MyLoginScreen
 import com.aman.fakestorecom.screens.loginsignup.MySignupScreen
+import com.aman.fakestorecom.screens.searchscreen.SearchScreen
 import com.aman.fakestorecom.viewmodels.authviewmodel.AuthViewModel
 import okhttp3.Route
 
@@ -129,6 +130,10 @@ fun App(authViewModel: AuthViewModel) {
         }
         composable(Routes.ADD_SHIPPING_ADDRESS_SCREEN) {
             AddShippingAddressScreen(navController) {navController.navigate(Routes.SHIPPING_ADDRESS_SCREEN)}
+        }
+
+        composable(Routes.SEARCH_SCREEN) {
+            SearchScreen(navController)
         }
     }
 }

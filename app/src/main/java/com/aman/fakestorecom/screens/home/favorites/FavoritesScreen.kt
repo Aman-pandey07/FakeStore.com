@@ -43,12 +43,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.aman.fakestorecom.R
+import com.aman.fakestorecom.navigation.Routes
 import com.aman.fakestorecom.screens.common_composable.PageBluePrint
 
 @Composable
 fun FavoriteContent(navController: NavController) {
     PageBluePrint(title = "", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         var selectedFilter by remember { mutableStateOf("T-Shirts") }
         var priceSort by remember { mutableStateOf(true) }
         Column(

@@ -52,7 +52,7 @@ import okhttp3.Route
 @Composable
 fun MyOrdersScreen(navController: NavController) {
     PageBluePrint(title = "My Orders", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         var selectedFilter by remember { mutableStateOf("Delivered") }
         Column(
             modifier = Modifier

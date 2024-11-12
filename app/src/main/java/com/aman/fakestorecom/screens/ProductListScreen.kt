@@ -46,7 +46,7 @@ fun ProductListScreen(
         title = "Products",
         rightIcon = Icons.Default.Search,
         {navController.navigateUp()},
-        {}
+        {navController.navigate(Routes.SEARCH_SCREEN)}
     ) {
         Column(
             modifier = Modifier

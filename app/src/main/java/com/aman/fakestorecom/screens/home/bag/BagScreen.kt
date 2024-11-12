@@ -64,7 +64,7 @@ data class CartItem(
 @Composable
 fun BagScreenContent(navController: NavController) {
     PageBluePrint(title = "My Bag", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {}) {
+        {navController.navigate(Routes.SEARCH_SCREEN)}) {
         val cartItems = remember {
             mutableStateListOf(
                 CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", 51),
