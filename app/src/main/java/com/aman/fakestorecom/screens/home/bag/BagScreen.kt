@@ -63,24 +63,34 @@ data class CartItem(
 
 @Composable
 fun BagScreenContent(navController: NavController) {
-    PageBluePrint(title = "My Bag", rightIcon = Icons.Default.Search,{navController.navigateUp()},
-        {navController.navigate(Routes.SEARCH_SCREEN)}) {
+    PageBluePrint(
+        title = "My Bag",
+        rightIcon = Icons.Default.Search,
+        { navController.navigateUp() },
+        { navController.navigate(Routes.SEARCH_SCREEN) }
+    ) {
         val cartItems = remember {
             mutableStateListOf(
+                CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", 51),
+                CartItem(R.drawable.bag_image2, "T-Shirt", "Gray", "L", 30),
+                CartItem(R.drawable.bag_image3, "Sport Dress", "Black", "M", 43),
                 CartItem(R.drawable.bag_image1, "Pullover", "Black", "L", 51),
                 CartItem(R.drawable.bag_image2, "T-Shirt", "Gray", "L", 30),
                 CartItem(R.drawable.bag_image3, "Sport Dress", "Black", "M", 43)
             )
         }
+
         val totalAmount by remember {
             derivedStateOf { cartItems.sumOf { it.price * it.quantity } }
         }
+
         var promoCode by remember { mutableStateOf("") }
+
         Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 16.dp)
-                ){
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 16.dp)
+        ) {
             Spacer(modifier = Modifier.padding(25.dp))
             Text(
                 text = "My Bag(Cart)",
@@ -95,26 +105,29 @@ fun BagScreenContent(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(cartItems) { item ->
-                    CartItemRow(item = item, onIncreaseQuantity = {
-                        item.quantity++
-                    }, onDecreaseQuantity = {
-                        if (item.quantity > 1) item.quantity--
-                    })
+                    CartItemRow(
+                        item = item,
+                        onIncreaseQuantity = {
+                            val index = cartItems.indexOf(item)
+                            cartItems[index] = item.copy(quantity = item.quantity + 1)
+                        },
+                        onDecreaseQuantity = {
+                            if (item.quantity > 1) {
+                                val index = cartItems.indexOf(item)
+                                cartItems[index] = item.copy(quantity = item.quantity - 1)
+                            }
+                        }
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            PromoCodeInput(promoCode) { newCode ->
-                promoCode = newCode
-            }
-
-//            Spacer(modifier = Modifier.height(10.dp))
-
+            PromoCodeInput(promoCode) { newCode -> promoCode = newCode }
 
             Row(
                 modifier = Modifier.padding(10.dp)
-            ){
+            ) {
                 Text(
                     text = "Total amount:",
                     fontWeight = FontWeight.Bold,
@@ -127,12 +140,11 @@ fun BagScreenContent(navController: NavController) {
                     fontSize = 20.sp
                 )
             }
-//            Text(
-//                text = "Total amount: ${totalAmount}$",
-//                fontWeight = FontWeight.Bold,
-//                fontSize = 20.sp
-//            )
-            RedGeneralButton(onClick = { navController.navigate(Routes.CHECKOUT_SCREEN) }, text = "CHECK OUT")
+
+            RedGeneralButton(
+                onClick = { navController.navigate(Routes.CHECKOUT_SCREEN) },
+                text = "CHECK OUT"
+            )
         }
     }
 }
