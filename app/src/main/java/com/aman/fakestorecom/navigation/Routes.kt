@@ -31,5 +31,6 @@ object Routes {
     const val ADD_SHIPPING_ADDRESS_SCREEN = "addshippingaddress"
     const val SHIPPING_ADDRESS_SCREEN = "shippingaddress"
     const val SEARCH_SCREEN = "searchscreen"
+    const val Notification_SCREEN = "notification"
 
 }

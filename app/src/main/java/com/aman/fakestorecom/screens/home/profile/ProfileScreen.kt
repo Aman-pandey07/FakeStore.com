@@ -90,6 +90,11 @@ fun ProfileContent(navController: NavController,authViewModel: AuthViewModel) {
                 subtitle = "Already have 12 orders"
             ) {navController.navigate(Routes.MY_ORDERS_PAGE)}
 
+            //notification
+            ProfileItem(
+                title = "Notifications",
+                subtitle = "Your product is shipped"
+            ) {navController.navigate(Routes.Notification_SCREEN)}
             // Shipping Addresses
             ProfileItem(
                 title = "Shipping addresses",

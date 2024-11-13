@@ -14,6 +14,7 @@ import com.aman.fakestorecom.screens.home.bag.checkoutflow.CheckoutPage
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.PaymentMethodsScreen
 import com.aman.fakestorecom.screens.home.bag.checkoutflow.SuccessScreen
 import com.aman.fakestorecom.screens.home.profile.profileoption.MyOrdersScreen
+import com.aman.fakestorecom.screens.home.profile.profileoption.NotificationScreen
 import com.aman.fakestorecom.screens.home.profile.profileoption.OrderDetailsScreen
 import com.aman.fakestorecom.screens.home.profile.profileoption.ProfileScreen
 import com.aman.fakestorecom.screens.home.profile.profileoption.SettingScreen
@@ -134,6 +135,9 @@ fun App(authViewModel: AuthViewModel) {
 
         composable(Routes.SEARCH_SCREEN) {
             SearchScreen(navController)
+        }
+        composable(Routes.Notification_SCREEN) {
+            NotificationScreen(navController)
         }
     }
 }

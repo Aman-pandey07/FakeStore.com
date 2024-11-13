@@ -59,7 +59,7 @@ fun CheckoutPage(navController: NavController) {
                     Text("Jane Doe", fontWeight = FontWeight.Bold)
                     Text("3 Newbridge Court")
                     Text("Chino Hills, CA 91709, United States")
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = { navController.navigate(Routes.SHIPPING_ADDRESS_SCREEN)}) {
                         Text("Change", color = Color.Red)
                     }
                 }
@@ -96,7 +96,7 @@ fun CheckoutPage(navController: NavController) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Text("**** **** **** 3947")
                     }
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = { navController.navigate(Routes.PAYMENT_SCREEN) }) {
                         Text("Change", color = Color.Red)
                     }
                 }
