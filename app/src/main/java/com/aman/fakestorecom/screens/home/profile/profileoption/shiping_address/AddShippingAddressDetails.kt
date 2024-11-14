@@ -32,10 +32,7 @@ fun AddShippingAddressScreen(navController: NavController,onSaveAddress: () -> U
 
         val fullName = remember { mutableStateOf("") }
         val addressLine = remember { mutableStateOf("") }
-        val city = remember { mutableStateOf("") }
-        val state = remember { mutableStateOf("") }
-        val zipCode = remember { mutableStateOf("") }
-        val country = remember { mutableStateOf("United States") }
+
 
         TextField(
             value = fullName.value,
@@ -55,43 +52,7 @@ fun AddShippingAddressScreen(navController: NavController,onSaveAddress: () -> U
                 .padding(vertical = 8.dp),
             singleLine = true
         )
-        TextField(
-            value = city.value,
-            onValueChange = { city.value = it },
-            label = { Text("City") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            singleLine = true
-        )
-        TextField(
-            value = state.value,
-            onValueChange = { state.value = it },
-            label = { Text("State/Province/Region") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            singleLine = true
-        )
-        TextField(
-            value = zipCode.value,
-            onValueChange = { zipCode.value = it },
-            label = { Text("Zip Code (Postal Code)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            singleLine = true
-        )
-        TextField(
-            value = country.value,
-            onValueChange = {},
-            label = { Text("Country") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            singleLine = true,
-            enabled = false
-        )
+
 
         Spacer(modifier = Modifier.height(24.dp))
 
