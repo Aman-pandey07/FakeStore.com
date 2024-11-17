@@ -3,12 +3,8 @@ package com.aman.fakestorecom.screens.home.profile.profileoption.shiping_address
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [Address::class], version = 1)
+@Database(entities = [Address::class], version = 1, exportSchema = false)
 abstract class AddressDatabase:RoomDatabase() {
-
-    companion object{
-        const val Name = "Address_DB"
-    }
-    abstract fun getAddressDao(): AddressDao
+    abstract val dao:AddressDao
 
 }

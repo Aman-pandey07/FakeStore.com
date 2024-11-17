@@ -11,13 +11,13 @@ class FakeStore:Application() {
         lateinit var addressDatabase: AddressDatabase
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        Room.databaseBuilder(
-            applicationContext,
-            AddressDatabase::class.java,
-            AddressDatabase.Name
-        ).build()
-    }
+//    override fun onCreate() {
+//        super.onCreate()
+//        Room.databaseBuilder(
+//            applicationContext,
+//            AddressDatabase::class.java,
+//            AddressDatabase.Name
+//        ).build()
+//    }
 
 }

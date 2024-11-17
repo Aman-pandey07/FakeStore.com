@@ -101,4 +101,12 @@ dependencies {
     //navigation
     implementation(libs.navigation.compose)
 
+    implementation (libs.androidx.room.runtime)
+    kapt (libs.androidx.room.compiler)
+
+    // Optional - Test helpers
+    testImplementation (libs.androidx.room.testing)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
 }
