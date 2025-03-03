@@ -44,6 +44,9 @@ I'm Aman Arvind Padney Native Android developer...
 
 
 ## Screenshots
+![App Screenshot](https://raw.githubusercontent.com/Aman-pandey07/FakeStore.com/refs/heads/master/Screenshot-2025-03-03-15-59-30-0%20(1).jpg)
+![App Screenshot](https://raw.githubusercontent.com/Aman-pandey07/FakeStore.com/refs/heads/master/Screenshot-2025-03-03-15-58-23-3.jpg)
+![App Screenshot](https://raw.githubusercontent.com/Aman-pandey07/FakeStore.com/refs/heads/master/Screenshot-2025-03-03-15-58-52-1.jpg)
 
 
 
